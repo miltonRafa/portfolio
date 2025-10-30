@@ -1,0 +1,10 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio Milton Rafa com projetos Node.js",
+  "scripts": {
+    "start": "cd portal_noticias && npm start"
+  },
+  "author": "Milton",
+  "license": "ISC"
+}
