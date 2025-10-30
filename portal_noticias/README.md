@@ -121,6 +121,80 @@ CREATE TABLE noticias (
 | `POST` | `/noticias/salvar` | Persistência de nova notícia |
 
 
+## Deploy gratuito no Railway
+
+### Passo 1: Preparar o repositório
+1. Certifique-se de que o código está no GitHub
+2. Verifique se existe o arquivo `.env.example` com as variáveis necessárias
+
+### Passo 2: Criar conta no Railway
+1. Acesse [railway.app](https://railway.app)
+2. Clique em "Login" no canto superior direito
+3. Escolha "Sign in with GitHub"
+4. Autorize o Railway a acessar seus repositórios
+
+### Passo 3: Criar novo projeto
+1. No painel do Railway, clique em "New Project"
+2. Selecione "Deploy from GitHub repo"
+3. Procure e selecione o repositório `portfolio` (ou nome do seu repo)
+4. Escolha a pasta `portal_noticias` se pedido
+
+### Passo 4: Adicionar banco de dados MySQL
+1. No projeto criado, clique em "New" > "Database" > "Add MySQL"
+2. Aguarde a criação do banco (leva cerca de 1-2 minutos)
+3. Clique no serviço MySQL criado
+4. Na aba "Variables", copie os valores:
+   - `MYSQL_HOST`
+   - `MYSQL_USER` 
+   - `MYSQL_PASSWORD`
+   - `MYSQL_DATABASE`
+   - `MYSQL_PORT`
+
+### Passo 5: Configurar variáveis de ambiente
+1. Clique no serviço da aplicação (nome do repositório)
+2. Vá na aba "Variables"
+3. Adicione as seguintes variáveis:
+
+```
+PORT=3000
+DB_HOST=[valor do MYSQL_HOST]
+DB_USER=[valor do MYSQL_USER]  
+DB_PASS=[valor do MYSQL_PASSWORD]
+DB_NAME=[valor do MYSQL_DATABASE]
+```
+
+### Passo 6: Deploy automático
+1. O Railway fará o deploy automaticamente
+2. Aguarde cerca de 2-3 minutos
+3. Se der erro, clique em "Deployments" para ver os logs
+
+### Passo 7: Importar esquema do banco
+1. No serviço MySQL, clique em "Connect"
+2. Use o comando mostrado ou ferramenta como phpMyAdmin
+3. Execute o script SQL para criar a tabela `noticias`:
+
+```sql
+CREATE TABLE noticias (
+    id_noticia INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    noticia TEXT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    resumo TEXT,
+    autor VARCHAR(100),
+    data_noticia DATE
+);
+```
+
+### Passo 8: Obter URL pública
+1. Na aba "Settings" do serviço da aplicação
+2. Clique em "Generate Domain"
+3. Sua aplicação estará disponível na URL gerada!
+
+### Solução de problemas comuns
+- **Erro de conexão DB:** Verifique se as variáveis estão corretas
+- **App não inicia:** Verifique os logs na aba "Deployments"
+- **Porta incorreta:** Certifique-se que PORT=3000 está configurado
+
 ## Desenvolvedor
 
 **Milton** - (https://linkedin.com/in/milton-r-dev) - miltonrs.dev@gmail.com
