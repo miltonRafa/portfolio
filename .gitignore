@@ -1,0 +1,64 @@
+# Python
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package-lock (opcional - alguns times preferem committar)
+package-lock.json
+
+# VS Code
+.vscode/
+*.code-workspace
+Documents.code-workspace
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Banco de dados (temporários)
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos de configuração sensíveis
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+out/
+
+# Temporary files
+*.tmp
+*.temp
