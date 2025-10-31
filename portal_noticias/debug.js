@@ -9,7 +9,7 @@ console.log('DB_PORT:', process.env.DB_PORT || '❌ NÃO DEFINIDA');
 console.log('=========================');
 
 // Teste de conexão
-var mysql = require('mysql');
+var mysql = require('mysql2');
 var connection = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',

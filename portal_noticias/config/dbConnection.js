@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require('mysql2');
 
 var connMysql = function(){
     console.log('conexao com bd estabelecida');
