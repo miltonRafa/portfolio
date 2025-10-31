@@ -4,7 +4,7 @@ Aplicação web para visualização e gerenciamento de notícias. Sistema simple
 
 ## 🌐 Demo Online
 
-**Acesse o projeto funcionando:** [https://athletic-charm-production.up.railway.app](https://athletic-charm-production.up.railway.app)
+**Acesse o projeto funcionando:** [https://portalnoticias.up.railway.app](https://portalnoticias.up.railway.app)
 
 ### Como usar:
 - **Navegar:** Explore as notícias pela página inicial
@@ -223,7 +223,7 @@ CREATE TABLE noticias (
 
 ## 🔗 Links do Projeto
 
-- **🌐 Demo Online:** [https://athletic-charm-production.up.railway.app](https://athletic-charm-production.up.railway.app)
+- **🌐 Demo Online:** [https://portalnoticias.up.railway.app](https://portalnoticias.up.railway.app)
 - **📋 Repositório:** [https://github.com/miltonRafa/portfolio](https://github.com/miltonRafa/portfolio)
 - **📖 Guia de Deploy:** [DEPLOY.md](./DEPLOY.md)
 

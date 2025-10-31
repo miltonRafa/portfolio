@@ -8,11 +8,11 @@ Desenvolvedor apaixonado por tecnologia, com experiência em Node.js, Python, Ja
 
 ## Projetos
 
-| Projeto                              | Descrição                                       | Tecnologias                    |
-|--------------------------------------|-------------------------------------------------|--------------------------------|
-| [Multiroom Chat](./multiroom_chat)   | Chat em tempo real com múltiplas salas          | Node.js, Socket.io             |
-| [Portal de Notícias](./portal_noticias) | Aplicação web full-stack para site de notícias  | Node.js, Express, MySQL       |
-| [Computação Natural](./algoritmo_genetico) | Algoritmo de busca com base em seleção natural | Python                    |
+| Projeto                              | Descrição                                       | Tecnologias                    | Demo Online |
+|--------------------------------------|-------------------------------------------------|--------------------------------|-------------|
+| [Multiroom Chat](./multiroom_chat)   | Chat em tempo real com múltiplas salas          | Node.js, Socket.io             | Em desenvolvimento |
+| [Portal de Notícias](./portal_noticias) | Aplicação web full-stack para site de notícias  | Node.js, Express, MySQL       | [Ver Online](https://portalnoticias.up.railway.app) |
+| [Computação Natural](./algoritmo_genetico) | Algoritmo de busca com base em seleção natural | Python                    | Script local |
 
 
 ## Como rodar os projetos
