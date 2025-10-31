@@ -8,15 +8,11 @@ var app = express();
 app.set('view engine', 'ejs');
 
 
-// Configurar Content Security Policy para permitir Google Translate
+// Desabilitar Content Security Policy para projeto de portfólio
 app.use((req, res, next) => {
-    res.setHeader('Content-Security-Policy', 
-        "default-src 'self'; " +
-        "style-src 'self' 'unsafe-inline' https://www.gstatic.com; " +
-        "script-src 'self' 'unsafe-inline' https://translate.google.com https://translate.googleapis.com; " +
-        "img-src 'self' data: https:; " +
-        "connect-src 'self' https://translate.googleapis.com;"
-    );
+    res.removeHeader('Content-Security-Policy');
+    res.removeHeader('X-Content-Security-Policy');
+    res.removeHeader('X-WebKit-CSP');
     next();
 });
 
