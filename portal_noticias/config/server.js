@@ -8,11 +8,15 @@ var app = express();
 app.set('view engine', 'ejs');
 
 
-// Desabilitar Content Security Policy para projeto de portfólio
+// Configurar CSP totalmente permissivo para projeto de portfólio
 app.use((req, res, next) => {
+    // Remove headers CSP existentes
     res.removeHeader('Content-Security-Policy');
     res.removeHeader('X-Content-Security-Policy');
     res.removeHeader('X-WebKit-CSP');
+    
+    // Define CSP completamente permissivo
+    res.setHeader('Content-Security-Policy', "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;");
     next();
 });
 
