@@ -1,4 +1,23 @@
 <!DOCTYPE HTML>
+<!--
+	PÁGINA INDIVIDUAL - NOTICIAS/NOTICIA.EJS
+	
+	Template para visualização COMPLETA de uma notícia específica.
+	Acessada quando usuário clica no título de uma notícia.
+	
+	DADOS RECEBIDOS DO CONTROLLER:
+	- noticia: Array com UMA notícia específica (resultado da query WHERE id_noticia = X)
+	- noticia[0]: Primeiro (e único) elemento do array
+	
+	FUNCIONAMENTO:
+	1. Usuário clica no título: "noticia?id_noticia=123"
+	2. Controller busca notícia específica no banco
+	3. Template recebe dados e exibe conteúdo completo
+	
+	DIFERENÇAS:
+	- Home/Lista: Mostra apenas resumo
+	- Esta página: Mostra conteúdo COMPLETO (campo 'noticia')
+-->
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
@@ -8,18 +27,19 @@
 		<!-- JQuery -->
 		<script src="js/jquery-2.2.1.js"></script>
 
-		<!-- bootstrap - link cdn -->
+		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	
-		<!-- incluindo css -->
+		<!-- CSS customizado -->
 		<link href="css/style.css" rel="stylesheet">
 
-		<!-- favicon -->
+		<!-- Favicon -->
 		<link rel="shortcut icon" href="images/favicon.ico" />
 	</head>
 
 	<body>
 
+		<!-- NAVBAR - Navegação consistente -->
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -44,14 +64,30 @@
 		</nav>
 
 
+	    <!-- CONTEÚDO - Notícia individual completa -->
 	    <div class="container">
 	    	<div class="row">
+	    		<!-- LARGURA TOTAL - Notícia individual merece destaque completo -->
 	    		<div class="col-md-12">
 	    			<div class="noticia_wrapper">
+	    				<!-- 
+	    					DADOS DA NOTÍCIA ESPECÍFICA
+	    					noticia[0] = único elemento do array retornado pela query
+	    					(query WHERE id_noticia = X retorna array com 1 elemento)
+	    				-->
 		    			<span class="noticia_autor"><%=noticia[0].autor%></span>
+		    			
+		    			<!-- Título como link (pode ser removido por redundância) -->
 		    			<a href="noticia?id_noticia=<%=noticia[0].id_noticia%>" class="noticia_titulo"><%=noticia[0].titulo%></a>
+		    			
 		    			<span class="noticia_data"><%=noticia[0].data_noticia%></span>
 		    			<br />
+		    			
+		    			<!-- 
+		    				CONTEÚDO COMPLETO DA NOTÍCIA
+		    				Campo 'noticia' = texto completo (não o resumo)
+		    				Aqui está a diferença: outras páginas mostram 'resumo'
+		    			-->
 		    			<p class="noticia_noticia">
 		    				<%=noticia[0].noticia%>
 		    			</p>
@@ -60,6 +96,7 @@
 	    	</div>
 	    </div>
 	
+	    <!-- Bootstrap JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	
 	</body>
