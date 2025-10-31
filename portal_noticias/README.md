@@ -2,6 +2,15 @@
 
 Aplicação web para visualização e gerenciamento de notícias. Sistema simples com interface para leitura e painel administrativo para inclusão de conteúdo.
 
+## 🌐 Demo Online
+
+**Acesse o projeto funcionando:** [https://athletic-charm-production.up.railway.app](https://athletic-charm-production.up.railway.app)
+
+### Como usar:
+- **Navegar:** Explore as notícias pela página inicial
+- **Visualizar:** Clique em qualquer notícia para ler o conteúdo completo
+- **Adicionar:** Use o botão verde "ADICIONAR NOTÍCIA" no menu para criar novos posts
+
 ## Screenshots
 
 ![Página inicial](./screenshots/home.png)
@@ -18,18 +27,32 @@ Aplicação web para visualização e gerenciamento de notícias. Sistema simple
 
 ## Stack tecnológica
 
-- Node.js com Express.js
-- Template engine EJS
-- Banco de dados MySQL
-- Express Validator para validação
-- CSS customizado e jQuery
+### Backend
+- **Node.js** com Express.js
+- **MySQL2** para conexão com banco de dados MySQL 8.0
+- **Template engine EJS** para renderização server-side
+- **Express Validator** para validação de dados
+- **Consign** para injeção de dependências
+
+### Frontend
+- **CSS customizado** com Bootstrap 3
+- **jQuery** para interações do lado cliente
+- **Design responsivo** com sistema de grid
+
+### Deploy e Infraestrutura
+- **Railway** para hospedagem gratuita
+- **MySQL em nuvem** com Railway
+- **Deploy automático** via GitHub
+- **Variáveis de ambiente** para configuração segura
 
 ## Funcionalidades
 
-- Listagem de notícias na página inicial
-- Visualização completa de artigos individuais
-- Formulário administrativo para criação de notícias
-- Validação de dados no backend antes da persistência
+- ✅ Listagem de notícias na página inicial
+- ✅ Visualização completa de artigos individuais  
+- ✅ Formulário administrativo para criação de notícias
+- ✅ Validação de dados no backend antes da persistência
+- ✅ Menu de navegação intuitivo
+- ✅ Sistema responsivo para mobile e desktop
 
 ## Arquitetura do projeto
 
@@ -98,6 +121,9 @@ CREATE TABLE noticias (
 - **Banco de Dados:** Integração com MySQL usando padrão DAO
 - **Validação:** Implementação de validação de dados no backend
 - **Roteamento:** Organização de rotas em módulos separados
+- **Deploy em Nuvem:** Configuração de variáveis de ambiente e deploy no Railway
+- **MySQL 8.0:** Compatibilidade com versões modernas usando mysql2
+- **Git/GitHub:** Versionamento e integração contínua
 
 ## Melhorias futuras
 
@@ -192,13 +218,19 @@ CREATE TABLE noticias (
 
 ### Solução de problemas comuns
 - **Erro de conexão DB:** Verifique se as variáveis estão corretas
-- **App não inicia:** Verifique os logs na aba "Deployments"
+- **App não inicia:** Verifique os logs na aba "Deployments"  
 - **Porta incorreta:** Certifique-se que PORT=3000 está configurado
+
+## 🔗 Links do Projeto
+
+- **🌐 Demo Online:** [https://athletic-charm-production.up.railway.app](https://athletic-charm-production.up.railway.app)
+- **📋 Repositório:** [https://github.com/miltonRafa/portfolio](https://github.com/miltonRafa/portfolio)
+- **📖 Guia de Deploy:** [DEPLOY.md](./DEPLOY.md)
 
 ## Desenvolvedor
 
-**Milton** - (https://linkedin.com/in/milton-r-dev) - miltonrs.dev@gmail.com
+**Milton Rafa** - [LinkedIn](https://linkedin.com/in/milton-r-dev) - miltonrs.dev@gmail.com
 
 ---
 
-*Este projeto foi desenvolvido como parte do aprendizado de Node.js e desenvolvimento web full-stack.*
+*Este projeto demonstra competências em desenvolvimento full-stack Node.js, deploy em nuvem e boas práticas de desenvolvimento.*
