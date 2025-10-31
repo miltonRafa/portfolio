@@ -44,3 +44,17 @@ a:hover{
 	background:#FFF;
 	padding:20px;
 }
+
+/* Estilo para botão de admin */
+.btn-admin {
+	background-color: #5cb85c !important;
+	color: white !important;
+	border-radius: 4px;
+	padding: 8px 12px !important;
+	margin: 8px 5px;
+}
+
+.btn-admin:hover {
+	background-color: #449d44 !important;
+	color: white !important;
+}
