@@ -54,10 +54,22 @@
 				</div>
 
 				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-left">
 						<li><a href="/">HOME</a></li>
 						<li><a href="/noticias">NOTÍCIAS</a></li>
+					</ul>
+					<!-- BOTÕES ADMINISTRATIVOS à direita -->
+					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a></li>
+						<li><a href="/formulario_update_noticia?id_noticia=<%=noticia[0].id_noticia%>" 
+							class="btn-edit">
+							EDITAR ESTA NOTÍCIA
+						</a></li>
+						<li><a href="/formulario_delete_noticia?id_noticia=<%=noticia[0].id_noticia%>" 
+							class="btn-delete"
+							onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">
+							EXCLUIR ESTA NOTÍCIA
+						</a></li>
 					</ul>
 				</div>
 			</div>

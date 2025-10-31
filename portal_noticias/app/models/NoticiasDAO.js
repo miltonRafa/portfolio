@@ -1,20 +1,112 @@
 /**
  * Data Access Object (DAO) para Notícias
  * 
- * Implementa o padrão DAO para centralizar todas as operações de banco de dados
- * relacionadas à entidade Notícia. Fornece uma camada de abstração entre
- * os controllers e o banco de dados MySQL.
+ * Centraliza operações de banco de dados relacionadas às notícias.
+ * Implementa padrão DAO para abstração da camada de dados MySQL.
  * 
- * Padrão de Projeto: DAO (Data Access Object)
- * Responsabilidades:
- * - Encapsular queries SQL
- * - Gerenciar conexões com banco de dados  
- * - Fornecer interface consistente para operações CRUD
- * 
- * @param {Connection} connection - Conexão ativa com banco MySQL
+ * @param {Connection} connection - Conexão ativa com banco MySQL via mysql2
  */
 function NoticiasDAO(connection){
-	this._connection = connection;  // Armazena conexão MySQL para uso nas queries
+	this._connection = connection;  // Armazena conexão para uso nos métodos
+}
+
+/**
+ * Lista todas as notícias ordenadas por data de criação
+ * 
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com array de notícias ou erro
+ */
+NoticiasDAO.prototype.getNoticias = function(callback){
+	this._connection.query(
+		'SELECT * FROM noticias ORDER BY data_criacao DESC', 
+		callback
+	);
+}
+
+/**
+ * Busca notícia específica por ID
+ * 
+ * @param {Object} id - Objeto contendo propriedade id_noticia
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com dados da notícia ou erro
+ */
+NoticiasDAO.prototype.getNoticia = function(id, callback){
+	this._connection.query(
+		'SELECT * FROM noticias WHERE id_noticia = ' + id.id_noticia, 
+		callback
+	);
+}
+
+/**
+ * Remove notícia por ID
+ * 
+ * @param {number} id - ID numérico da notícia a ser removida
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com resultado da operação DELETE
+ */
+NoticiasDAO.prototype.deleteNoticia = function(id, callback){
+	this._connection.query(
+		'DELETE FROM noticias WHERE id_noticia = ' + id, 
+		callback
+	);
+}
+
+/**
+ * Atualiza notícia existente no banco
+ * 
+ * @param {number} id - ID numérico da notícia a ser atualizada
+ * @param {Object} noticia - Objeto com dados atualizados da notícia
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com resultado da operação UPDATE
+ */
+NoticiasDAO.prototype.updateNoticia = function(id, noticia, callback){
+	this._connection.query(
+		'UPDATE noticias SET ? WHERE id_noticia = ' + id, 
+		noticia, 
+		callback
+	);
+}
+
+/**
+ * Insere nova notícia no banco
+ * 
+ * @param {Object} noticia - Objeto com dados da nova notícia
+ * @param {string} noticia.titulo - Título da notícia
+ * @param {string} noticia.resumo - Resumo da notícia (10-100 chars)
+ * @param {string} noticia.autor - Nome do autor
+ * @param {string} noticia.data_noticia - Data no formato YYYY-MM-DD
+ * @param {string} noticia.noticia - Conteúdo completo da notícia
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com resultado da operação INSERT
+ */
+NoticiasDAO.prototype.salvarNoticia = function(noticia, callback){
+	this._connection.query(
+		'INSERT INTO noticias SET ?', 
+		noticia, 
+		callback
+	);
+}
+
+/**
+ * Busca as 5 notícias mais recentes para homepage
+ * 
+ * @param {Function} callback - Função de callback (error, result)
+ * @returns {void} Executa callback com array limitado a 5 notícias mais recentes
+ */
+NoticiasDAO.prototype.get5UltimasNoticias = function(callback){
+	this._connection.query(
+		'SELECT * FROM noticias ORDER BY data_criacao DESC LIMIT 5', 
+		callback
+	);
+}
+
+/**
+ * Exporta classe NoticiasDAO para injeção via Consign
+ * 
+ * @returns {Function} Construtor da classe NoticiasDAO
+ */
+module.exports = function(){
+	return NoticiasDAO;
 }
 
 /**
@@ -44,6 +136,40 @@ NoticiasDAO.prototype.getNoticias = function(callback){
 NoticiasDAO.prototype.getNoticia = function(id, callback){
 	this._connection.query(
 		'SELECT * FROM noticias WHERE id_noticia = ' + id.id_noticia, 
+		callback
+	);
+}
+
+/**
+ * Deleta uma notícia específica pelo ID
+ * 
+ * Deleta uma notícia individual
+ * baseado no identificador único fornecido.
+ * 
+ * @param {Object} id - Objeto contendo id_noticia
+ * @param {Function} callback - Função de callback (error, result)
+ */
+NoticiasDAO.prototype.deleteNoticia = function(id, callback){
+	this._connection.query(
+		'DELETE FROM noticias WHERE id_noticia = ' + id, 
+		callback
+	);
+}
+
+/**
+ * Atualiza uma notícia específica pelo ID
+ * 
+ * Atualiza dados completos de uma notícia individual
+ * baseado no identificador único fornecido.
+ * 
+ * @param {Object} id - Objeto contendo id_noticia
+ * @param {Object} noticia - Objeto com dados atualizados da notícia
+ * @param {Function} callback - Função de callback (error, result)
+ */
+NoticiasDAO.prototype.updateNoticia = function(id, noticia, callback){
+	this._connection.query(
+		'UPDATE noticias SET ? WHERE id_noticia = ' + id, 
+		noticia, 
 		callback
 	);
 }

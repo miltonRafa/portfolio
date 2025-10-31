@@ -1,53 +1,83 @@
 /**
- * Rotas Administrativas
+ * Rotas Administrativas - CRUD de Notícias
  * 
- * Define endpoints para funcionalidades administrativas do portal de notícias.
- * Gerencia criação e gestão de conteúdo.
+ * Define endpoints para funcionalidades administrativas do portal.
+ * ⚠️ ATENÇÃO: Em produção, implementar autenticação para estas rotas!
  * 
- * ⚠️  NOTA DE SEGURANÇA: Estas rotas atualmente são públicas.
- * Em produção, devem ser protegidas com sistema de autenticação.
- * 
- * Endpoints definidos:
- * - GET  /formulario_inclusao_noticia : Formulário para criar notícia
- * - POST /noticias/salvar            : Processamento e persistência
+ * @param {Object} application - Instância Express com dependências injetadas via Consign
+ * @returns {void} Define rotas no objeto application
  */
 
 module.exports = function(application){
 	
 	/**
-	 * Formulário de inclusão de notícia
-	 * 
-	 * Exibe interface administrativa para criação de nova notícia.
-	 * Apresenta formulário com campos validados para entrada de dados.
+	 * Formulário para criar nova notícia
 	 * 
 	 * @route GET /formulario_inclusao_noticia
-	 * @description Formulário administrativo para criar notícia
 	 * @access Público (⚠️ Deveria ser protegido)
-	 * @todo Implementar autenticação administrativa
+	 * @returns {void} Renderiza admin/form_add_noticia
 	 */
 	application.get('/formulario_inclusao_noticia', function(req, res){
 		application.app.controllers.admin.formulario_inclusao_noticia(application, req, res);
 	});
 
 	/**
-	 * Processamento e salvamento de notícia
+	 * Formulário para editar notícia existente
 	 * 
-	 * Recebe dados do formulário, aplica validações server-side
-	 * e persiste nova notícia no banco de dados.
+	 * @route GET /formulario_update_noticia?id_noticia=X
+	 * @access Público (⚠️ Deveria ser protegido)
+	 * @param {string} id_noticia - ID da notícia via query string
+	 * @returns {void} Renderiza admin/form_update_noticia ou redireciona
+	 */
+	application.get('/formulario_update_noticia', function(req, res){
+		application.app.controllers.admin.formulario_update_noticia(application, req, res);
+	});
+
+	/**
+	 * Formulário para confirmar exclusão
 	 * 
-	 * Campos esperados (POST):
-	 * - titulo: string, obrigatório
-	 * - resumo: string, 10-100 chars, obrigatório  
-	 * - autor: string, obrigatório
-	 * - data_noticia: date (YYYY-MM-DD), obrigatório
-	 * - noticia: text, obrigatório
+	 * @route GET /formulario_delete_noticia?id_noticia=X
+	 * @access Público (⚠️ Deveria ser protegido)
+	 * @param {string} id_noticia - ID da notícia via query string
+	 * @returns {void} Renderiza admin/form_delete_noticia ou redireciona
+	 */
+	application.get('/formulario_delete_noticia', function(req, res){
+		application.app.controllers.admin.formulario_delete_noticia(application, req, res);
+	});
+
+	/**
+	 * Processar criação de notícia
 	 * 
 	 * @route POST /noticias/salvar
-	 * @description Validação e persistência de nova notícia
 	 * @access Público (⚠️ Deveria ser protegido)
-	 * @todo Implementar autenticação administrativa
+	 * @param {Object} req.body - Dados do formulário (titulo, resumo, autor, data_noticia, noticia)
+	 * @returns {void} Renderiza formulário com erros ou redireciona para /noticias
 	 */
 	application.post('/noticias/salvar', function(req, res){
 		application.app.controllers.admin.noticias_salvar(application, req, res);
+	});
+
+	/**
+	 * Processar atualização de notícia
+	 * 
+	 * @route POST /noticias/update
+	 * @access Público (⚠️ Deveria ser protegido)
+	 * @param {Object} req.body - Dados do formulário incluindo id_noticia via hidden field
+	 * @returns {void} Renderiza formulário com erros ou redireciona para /noticias
+	 */
+	application.post('/noticias/update', function(req, res){
+		application.app.controllers.admin.noticias_update(application, req, res);
+	});
+
+	/**
+	 * Processar exclusão de notícia
+	 * 
+	 * @route POST /noticias/delete
+	 * @access Público (⚠️ Deveria ser protegido)
+	 * @param {Object} req.body - Dados incluindo id_noticia via hidden field
+	 * @returns {void} Redireciona para /noticias após exclusão
+	 */
+	application.post('/noticias/delete', function(req, res){
+		application.app.controllers.admin.noticias_delete(application, req, res);
 	});
 };

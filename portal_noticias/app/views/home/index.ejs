@@ -75,10 +75,11 @@
 	    	<!-- PRIMEIRA LINHA: Notícia principal (destaque) + notícia secundária -->
 	    	<div class="row">
 	    	
+	    		<% if(noticias && noticias.length > 0) { %>
 		    	<!-- NOTÍCIA PRINCIPAL - Ocupa 8 colunas (mais destaque) -->
 		    		<div class="col-md-8">
 		    			<div class="noticia_wrapper">
-		    				<!-- EJS: <%= %> exibe dados vindos do controller -->
+		    				<!-- EJS: exibe dados vindos do controller -->
 		    				<!-- noticias[0] = primeira notícia do array (mais recente) -->
 			    			<span class="noticia_autor"><%= noticias[0].autor %></span>
 			    			
@@ -95,6 +96,7 @@
 			    		</div>
 			    	</div>
 			   
+			   	<% if(noticias.length > 1) { %>
 			   	<!-- NOTÍCIA SECUNDÁRIA - Ocupa 4 colunas (menor destaque) -->
 	    		<div class="col-md-4">
 	    			<div class="noticia_wrapper">
@@ -109,12 +111,25 @@
 		    			</p>
 		    		</div>
 		    	</div>
+		    	<% } %>
+		    	
+		    	<% } else { %>
+		    	<!-- MENSAGEM QUANDO NÃO HÁ NOTÍCIAS -->
+		    	<div class="col-md-12">
+		    		<div class="alert alert-info text-center">
+		    			<h3>Nenhuma notícia disponível</h3>
+		    			<p>Ainda não há notícias publicadas no portal. Volte em breve!</p>
+		    			<a href="/formulario_inclusao_noticia" class="btn btn-primary">Publicar primeira notícia</a>
+		    		</div>
+		    	</div>
+		    	<% } %>
 	    	</div>
 
+	    	<% if(noticias && noticias.length > 2) { %>
 	    	<!-- SEGUNDA LINHA: Demais notícias (3ª, 4ª, 5ª) em cards menores -->
 	    	<div class="row">
 	    		<!-- 
-	    			LOOP EJS: <% for() { %> executa JavaScript no servidor
+	    			LOOP EJS: for executa JavaScript no servidor
 	    			Itera pelas notícias restantes (índice 2 até o final do array)
 	    		-->
 	    		<% for(var i = 2; i < noticias.length; i++) { %>
@@ -134,13 +149,16 @@
 			    <!-- Fechamento do loop EJS -->
 			     <% } %>
 	    	</div>
+	    	<% } %>
 
 	    	<!-- BOTÃO "VER MAIS" - Link para página com todas as notícias -->
+	    	<% if(noticias && noticias.length > 0) { %>
 	    	<div class="row ver_mais">
 	    		<button type="button" class="btn btn-default">
 	    			<a href="noticias">Ver todas as notícias</a>
 	    		</button>
 	    	</div>
+	    	<% } %>
 
 	    </div>
 	

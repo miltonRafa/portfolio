@@ -1,55 +1,93 @@
 /**
- * Controller Administrativo
+ * Controller Administrativo - Gerenciamento de Notícias
  * 
- * Gerencia funcionalidades administrativas do portal de notícias,
- * incluindo formulários de criação e validação de dados.
- * 
- * Funcionalidades:
- * - Exibição de formulário para nova notícia
- * - Validação e persistência de notícias
- * - Tratamento de erros de validação
+ * Funcionalidades CRUD:
+ * - Formulários de criação, edição e exclusão
+ * - Validação de dados com express-validator
+ * - Persistência via NoticiasDAO
  */
 
 /**
- * Exibe o formulário para inclusão de nova notícia
+ * Exibe formulário para nova notícia
  * 
- * Renderiza a página administrativa com formulário limpo,
- * pronto para receber dados de uma nova notícia.
- * 
- * @param {Object} application - Instância da aplicação Express
+ * @param {Object} application - Instância da aplicação Express com dependências injetadas
  * @param {Object} req - Objeto de requisição HTTP
  * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza template admin/form_add_noticia
  */
 module.exports.formulario_inclusao_noticia = function(application, req, res){
 	res.render("admin/form_add_noticia", {
-		validacao: {},  // Objeto vazio para validações (formulário limpo)
-		noticia: {}     // Objeto vazio para dados da notícia (formulário limpo)
+		validacao: {},  // Array vazio - sem erros na primeira carga
+		noticia: {}     // Objeto vazio - formulário limpo
 	});
 }
 
 /**
- * Processa e salva uma nova notícia no banco de dados
- * 
- * Valida todos os campos obrigatórios usando express-validator,
- * em caso de erro reexibe o formulário com mensagens de validação,
- * caso contrário persiste os dados no banco via DAO.
- * 
- * Validações aplicadas:
- * - Título: obrigatório
- * - Resumo: obrigatório, 10-100 caracteres
- * - Autor: obrigatório  
- * - Data: obrigatória, formato YYYY-MM-DD
- * - Conteúdo: obrigatório
+ * Exibe formulário para editar notícia existente
+ * Busca dados da notícia pelo ID via query string
  * 
  * @param {Object} application - Instância da aplicação Express
- * @param {Object} req - Objeto de requisição HTTP (contém dados do formulário)
+ * @param {Object} req - Objeto de requisição HTTP (contém query string ?id_noticia=X)
  * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza template admin/form_update_noticia ou redireciona
+ */
+module.exports.formulario_update_noticia = function(application, req, res){
+	var id_noticia = req.query;  // Captura ?id_noticia=123
+	
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
+	
+	noticiasDAO.getNoticia(id_noticia, function(error, result){
+		if(result.length > 0){
+			res.render("admin/form_update_noticia", {
+				validacao: {},          // Sem erros na primeira carga
+				noticia: result[0]      // Dados da notícia para preencher formulário
+			});
+		} else {
+			res.redirect('/noticias'); // Notícia não encontrada
+		}
+	});
+}
+
+/**
+ * Exibe formulário para confirmar exclusão de notícia
+ * 
+ * @param {Object} application - Instância da aplicação Express
+ * @param {Object} req - Objeto de requisição HTTP (contém query string ?id_noticia=X)
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza template admin/form_delete_noticia ou redireciona
+ */
+module.exports.formulario_delete_noticia = function(application, req, res){
+	var id_noticia = req.query;  // Captura ?id_noticia=123
+	
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
+	
+	noticiasDAO.getNoticia(id_noticia, function(error, result){
+		if(result.length > 0){
+			res.render("admin/form_delete_noticia", {
+				validacao: {},          // Sem erros na primeira carga
+				noticia: result[0]      // Dados da notícia para confirmação
+			});
+		} else {
+			res.redirect('/noticias'); // Notícia não encontrada
+		}
+	});
+}
+
+/**
+ * Processa e salva nova notícia
+ * Aplica validações e persiste no banco via DAO
+ * 
+ * @param {Object} application - Instância da aplicação Express
+ * @param {Object} req - Objeto de requisição HTTP (contém dados do formulário via POST)
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza formulário com erros ou redireciona para /noticias
  */
 module.exports.noticias_salvar = function(application, req, res){
-	// Extrai dados do formulário enviado via POST
-	var noticia = req.body;
+	var noticia = req.body;  // Todos os dados do formulário
 
-	// Aplicação de regras de validação usando express-validator
+	// Validações obrigatórias usando express-validator
 	req.assert('titulo', 'Título é obrigatório').notEmpty();
 	req.assert('resumo', 'Resumo é obrigatório').notEmpty();
 	req.assert('resumo', 'Resumo deve conter entre 10 e 100 caracteres').len(10, 100);
@@ -57,24 +95,89 @@ module.exports.noticias_salvar = function(application, req, res){
 	req.assert('data_noticia', 'Data da notícia é obrigatória').notEmpty().isDate({format: 'YYYY-MM-DD'});
 	req.assert('noticia', 'Notícia é obrigatória').notEmpty();
 
-	// Coleta todos os erros de validação encontrados
 	var erros = req.validationErrors();
 	
-	// Se houver erros, reexibe o formulário com mensagens de erro e dados preenchidos
+	// Se há erros, reexibe formulário com dados preenchidos
 	if(erros){
 		res.render("admin/form_add_noticia", {
-			validacao: erros,     // Erros para exibição no template
-			noticia: noticia      // Dados preenchidos para manter no formulário
+			validacao: erros,     // Array de erros para exibição
+			noticia: noticia      // Mantém dados preenchidos
 		});
 		return;
 	}
 
-	// Se não há erros, procede com a persistência no banco de dados
-	var connection = application.config.dbConnection();                      // Obtém conexão com MySQL
-	var noticiasDAO = new application.app.models.NoticiasDAO(connection);    // Instancia DAO para operações de banco
+	// Sem erros: salva no banco e redireciona
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
 
-	// Salva a notícia e redireciona para listagem upon sucesso
 	noticiasDAO.salvarNoticia(noticia, function(error, result){
-		res.redirect('/noticias');  // Redirecionamento para página de listagem
+		res.redirect('/noticias');  // Sucesso: vai para listagem
+	});
+}
+
+/**
+ * Processa e atualiza notícia existente
+ * Aplica validações e atualiza via DAO usando ID do campo hidden
+ * 
+ * @param {Object} application - Instância da aplicação Express
+ * @param {Object} req - Objeto de requisição HTTP (contém id_noticia via hidden field)
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza formulário com erros ou redireciona para /noticias
+ */
+module.exports.noticias_update = function(application, req, res){
+	var id = req.body.id_noticia;  // ID vem do campo hidden do formulário
+	var noticia = {
+		titulo: req.body.titulo,
+		resumo: req.body.resumo, 
+		autor: req.body.autor,
+		data_noticia: req.body.data_noticia,
+		noticia: req.body.noticia
+	};
+
+	// Validações obrigatórias usando express-validator
+	req.assert('titulo', 'Título é obrigatório').notEmpty();
+	req.assert('resumo', 'Resumo é obrigatório').notEmpty();
+	req.assert('resumo', 'Resumo deve conter entre 10 e 100 caracteres').len(10, 100);
+	req.assert('autor', 'Nome do autor é obrigatório').notEmpty();
+	req.assert('data_noticia', 'Data da notícia é obrigatória').notEmpty().isDate({format: 'YYYY-MM-DD'});
+	req.assert('noticia', 'Notícia é obrigatória').notEmpty();
+
+	var erros = req.validationErrors();
+	
+	// Se há erros, reexibe formulário com dados preenchidos
+	if(erros){
+		res.render("admin/form_update_noticia", {
+			validacao: erros,     // Array de erros para exibição
+			noticia: noticia      // Mantém dados preenchidos
+		});
+		return;
+	}
+
+	// Sem erros: atualiza no banco e redireciona
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
+
+	noticiasDAO.updateNoticia(id, noticia, function(error, result){
+		res.redirect('/noticias');  // Sucesso: vai para listagem
+	});
+}
+
+/**
+ * Processa e deleta notícia
+ * Remove notícia do banco usando ID do campo hidden
+ * 
+ * @param {Object} application - Instância da aplicação Express
+ * @param {Object} req - Objeto de requisição HTTP (contém id_noticia via hidden field)
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Redireciona para /noticias após exclusão
+ */
+module.exports.noticias_delete = function(application, req, res){
+	var id = req.body.id_noticia;  // ID vem do campo hidden do formulário
+
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
+
+	noticiasDAO.deleteNoticia(id, function(error, result){
+		res.redirect('/noticias');  // Sucesso: vai para listagem
 	});
 }

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<!--
+	FORMULÁRIO ADMINISTRATIVO - ADMIN/FORM_ADD_NOTICIA.EJS
+	
+	Interface para criação de novas notícias no sistema.
+	Acessada via botão "ADICIONAR NOTÍCIA" no menu.
+	
+	DADOS RECEBIDOS DO CONTROLLER:
+	- validacao: Array com erros de validação (vazio em primeira carga)
+	- noticia: Objeto com dados preenchidos (vazio em primeira carga, preenchido se houver erro)
+	
+	FUNCIONAMENTO:
+	1. Primeira carga: Formulário limpo
+	2. Erro de validação: Formulário preenchido + mensagens de erro
+	3. Sucesso: Redirecionamento para /noticias
+	
+	SEGURANÇA:
+	⚠️ Esta página deveria ser protegida com autenticação!
+	Atualmente qualquer pessoa pode acessar e criar notícias.
+-->
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+
+		<title>Portal de notícias</title>
+		
+		<!-- JQuery -->
+		<script src="js/jquery-2.2.1.js"></script>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+		<!-- CSS customizado -->
+		<link href="css/style.css" rel="stylesheet">
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="images/favicon.ico" />
+	</head>
+
+	<body>
+
+		<!-- NAVBAR - Menu administrativo simplificado -->
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					
+					<img src="images/logo.png" />
+				</div>
+
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<!-- CORRIGIDO: href="/" aponta para página inicial dinâmica -->
+						<li><a href="/">HOME</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+	    <!-- CONTEÚDO PRINCIPAL - Formulário administrativo -->
+	    <div class="container">
+		
+		    <!-- 
+		    	BLOCO DE VALIDAÇÃO - Exibe erros se houver
+		    	Condicional EJS: só mostra se array validacao não estiver vazio
+		    -->
+			<% if(validacao.length > 0){ %>
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Alert Bootstrap vermelho para chamar atenção aos erros -->
+						<div class="alert alert-danger">
+							<strong>Atenção!</strong>
+							<ul>
+								<!-- 
+									Loop pelos erros de validação
+									Cada erro vem do express-validator no controller
+								-->
+								<% for(var i = 0; i < validacao.length; i++){ %>
+									<li><%= validacao[i].msg %></li>
+								<% } %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			<% } %>
+			
+			<!-- FORMULÁRIO PRINCIPAL -->
+	    	<div class="row">
+	    		<div class="col-md-12">
+	    			<!-- 
+	    				FORM POST - Envia dados para rota /noticias/salvar
+	    				method="post" = dados no body (não na URL)
+	    			-->
+	    			<form action="/noticias/update" method="post">
+	    				
+	    				<!-- CAMPO HIDDEN - ID DA NOTÍCIA (obrigatório para UPDATE) -->
+	    				<input type="hidden" name="id_noticia" value="<%= noticia.id_noticia %>">
+	    				<!-- type="hidden" = campo invisível que preserva o ID da notícia
+	    				     Sem este campo, o controller não saberia QUAL notícia atualizar -->
+	    				
+	    				<!-- CAMPO TÍTULO -->
+						<div class="form-group">
+							<label for="titulo">Título:</label>
+							<input type="text" class="form-control" id="titulo" name="titulo" 
+							       value="<%= noticia.titulo || '' %>">
+							<!-- value preserva dados em caso de erro de validação -->
+						</div>
+
+						<!-- CAMPO RESUMO -->
+						<div class="form-group">
+							<label for="resumo">Resumo:</label>
+							<input type="text" class="form-control" id="resumo" name="resumo"
+							       value="<%= noticia.resumo || '' %>">
+							<!-- Validação: 10-100 caracteres (definida no controller) -->
+						</div>
+						
+						<!-- CAMPO AUTOR -->
+						<div class="form-group">
+							<label for="autor">Autor:</label>
+							<input type="text" class="form-control" id="autor" name="autor"
+							       value="<%= noticia.autor || '' %>">
+						</div>
+
+						<!-- CAMPO DATA -->
+						<div class="form-group">
+							<label for="data_noticia">Data:</label>
+							<input type="date" class="form-control" id="data_noticia" name="data_noticia"
+							       value="<%= noticia.data_noticia || '' %>">
+							<!-- type="date" = seletor de data HTML5 -->
+						</div>
+
+						<!-- CAMPO CONTEÚDO COMPLETO -->
+						<div class="form-group">
+							<label for="noticia">Notícia:</label>
+							<textarea class="form-control" id="noticia" name="noticia" rows="6"><%= noticia.noticia || '' %></textarea>
+							<!-- textarea para textos longos, preserva quebras de linha -->
+						</div>
+
+						<!-- BOTÃO SUBMIT -->
+						<button type="submit" class="btn btn-default">Atualizar notícia</button>
+						</form>
+		    	</div>
+	    	</div>
+	    </div>
+	
+	    <!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	
+	</body>
+</html>

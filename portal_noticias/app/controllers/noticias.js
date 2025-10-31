@@ -1,15 +1,45 @@
 /**
  * Controller de Notícias Públicas
- * 
- * Gerencia a exibição de notícias para visitantes do portal.
- * Responsável por renderizar páginas de listagem e visualização
- * individual de notícias com dados dinâmicos do banco.
- * 
- * Funcionalidades:
- * - Listagem completa de notícias publicadas
- * - Visualização individual de notícias específicas
- * - Interface pública de leitura do conteúdo
+ * Gerencia listagem e visualização individual de notícias para visitantes
  */
+
+/**
+ * Lista todas as notícias publicadas
+ * Busca todas as notícias do banco ordenadas por data decrescente
+ * 
+ * @param {Object} application - Instância da aplicação Express com dependências injetadas
+ * @param {Object} req - Objeto de requisição HTTP
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza template noticias/noticias com array de notícias
+ */
+module.exports.noticias = function(application, req, res){
+	var connection = application.config.dbConnection();
+	var NoticiasDAO = new application.app.models.NoticiasDAO(connection);
+
+	NoticiasDAO.getNoticias(function(error, result){
+		res.render("noticias/noticias", {noticias: result});
+	});
+}
+
+/**
+ * Exibe notícia específica para leitura completa
+ * Busca notícia individual pelo ID fornecido via query string
+ * 
+ * @param {Object} application - Instância da aplicação Express
+ * @param {Object} req - Objeto de requisição HTTP (contém query string ?id_noticia=X)
+ * @param {Object} res - Objeto de resposta HTTP
+ * @returns {void} Renderiza template noticias/noticia com dados da notícia
+ */
+module.exports.noticia = function(application, req, res){
+	var id_noticia = req.query;  // Captura ?id_noticia=123
+	
+	var connection = application.config.dbConnection();
+	var NoticiasDAO = new application.app.models.NoticiasDAO(connection);
+
+	NoticiasDAO.getNoticia(id_noticia, function(error, result){
+		res.render("noticias/noticia", {noticia: result});
+	});
+}
 
 /**
  * Lista todas as notícias publicadas

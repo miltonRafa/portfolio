@@ -1,24 +1,19 @@
 /**
  * Rotas da Página Inicial
  * 
- * Define as rotas públicas relacionadas à homepage do portal de notícias.
- * Centraliza o roteamento para a página principal que exibe as últimas notícias.
+ * Define rota principal do portal que exibe homepage com últimas notícias.
  * 
- * Endpoints definidos:
- * - GET / : Página inicial com últimas notícias
+ * @param {Object} application - Instância Express com dependências injetadas via Consign
+ * @returns {void} Define rota principal no objeto application
  */
 
 module.exports = function(application){
-
 	/**
-	 * Rota da página inicial
-	 * 
-	 * Endpoint principal do portal que exibe as 5 notícias mais recentes.
-	 * Representa a landing page do site acessível por visitantes.
+	 * Homepage com últimas notícias
 	 * 
 	 * @route GET /
-	 * @description Homepage com últimas notícias publicadas
 	 * @access Público
+	 * @returns {void} Renderiza home/index com 5 notícias mais recentes
 	 */
 	application.get('/', function(req, res){
 		application.app.controllers.home.index(application, req, res);

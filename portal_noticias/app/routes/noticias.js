@@ -1,12 +1,11 @@
 /**
- * Rotas de Notícias Públicas
+ * Rotas Públicas de Notícias
  * 
- * Define endpoints públicos para visualização de notícias pelos visitantes.
- * Permite acesso de leitura ao conteúdo do portal sem necessidade de autenticação.
+ * Define endpoints para visualização de notícias pelos visitantes.
+ * Acesso de leitura ao conteúdo sem necessidade de autenticação.
  * 
- * Endpoints definidos:
- * - GET /noticias : Lista completa de notícias
- * - GET /noticia  : Visualização de notícia específica
+ * @param {Object} application - Instância Express com dependências injetadas via Consign
+ * @returns {void} Define rotas públicas no objeto application
  */
 
 module.exports = function(application){
@@ -14,12 +13,9 @@ module.exports = function(application){
 	/**
 	 * Lista todas as notícias publicadas
 	 * 
-	 * Exibe página com listagem completa de notícias ordenadas por data.
-	 * Permite aos visitantes navegar por todo o conteúdo disponível.
-	 * 
 	 * @route GET /noticias
-	 * @description Listagem completa de notícias publicadas
 	 * @access Público
+	 * @returns {void} Renderiza noticias/noticias com listagem completa
 	 */
 	application.get('/noticias', function(req, res){
 		application.app.controllers.noticias.noticias(application, req, res);
@@ -28,14 +24,10 @@ module.exports = function(application){
 	/**
 	 * Visualiza notícia específica
 	 * 
-	 * Exibe conteúdo completo de uma notícia individual.
-	 * Espera parâmetro id_noticia via query string.
-	 * 
-	 * @route GET /noticia
-	 * @description Visualização de notícia específica
-	 * @param {number} id_noticia - ID da notícia a ser exibida (query string)
+	 * @route GET /noticia?id_noticia=X
 	 * @access Público
-	 * @example GET /noticia?id_noticia=1
+	 * @param {string} id_noticia - ID da notícia via query string
+	 * @returns {void} Renderiza noticias/noticia com dados da notícia individual
 	 */
 	application.get('/noticia', function(req, res){
 		application.app.controllers.noticias.noticia(application, req, res);

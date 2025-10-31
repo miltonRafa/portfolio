@@ -58,3 +58,42 @@ a:hover{
 	background-color: #449d44 !important;
 	color: white !important;
 }
+
+.btn-edit {
+    background-color: #f0ad4e !important;
+    color: white !important;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 8px 4px;
+}
+
+.btn-edit:hover {
+    background-color: #ec971f !important;
+    text-decoration: none;
+}
+
+/* Estilo para botão de deletar */
+.btn-delete {
+    background-color: #d9534f !important;
+    color: white !important;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 8px 4px;
+    border: none;
+    font-size: 14px;
+}
+
+.btn-delete:hover {
+    background-color: #c9302c !important;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
+
+/* Efeito de confirmação - adiciona uma sombra mais intensa */
+.btn-delete:active {
+    background-color: #ac2925 !important;
+    box-shadow: 0 2px 8px rgba(217, 83, 79, 0.4);
+}
