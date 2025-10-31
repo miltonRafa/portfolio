@@ -4,9 +4,9 @@ var connMysql = function(){
     console.log('conexao com bd estabelecida');
     return mysql.createConnection({
         host : process.env.DB_HOST || 'localhost',
-        user : process.env.DB_USER || 'milton',
+        user : process.env.DB_USER || 'root',
         password : process.env.DB_PASS || '28032014Aa',
-        database : process.env.DB_NAME || 'portal_noticias',
+        database : process.env.DB_NAME || 'railway',
         port : process.env.DB_PORT || 3306
     });
 };module.exports = function(){
