@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Portfolio Milton Rafa com projetos Node.js",
   "scripts": {
-    "start": "cd portal_noticias && npm start"
+    "start": "./start.sh"
   },
   "author": "Milton",
   "license": "ISC"
