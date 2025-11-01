@@ -45,30 +45,44 @@ a:hover{
 	padding:20px;
 }
 
-/* Estilo para botão de admin */
+/* Estilos padronizados para botões CRUD */
 .btn-admin {
 	background-color: #5cb85c !important;
 	color: white !important;
 	border-radius: 4px;
-	padding: 8px 12px !important;
-	margin: 8px 5px;
+	padding: 10px 16px !important;
+	margin: 8px 4px;
+	border: none;
+	font-size: 14px;
+	min-width: 80px;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
 }
 
 .btn-admin:hover {
 	background-color: #449d44 !important;
 	color: white !important;
+	text-decoration: none;
 }
 
 .btn-edit {
     background-color: #f0ad4e !important;
     color: white !important;
     border-radius: 4px;
-    padding: 8px 12px;
+    padding: 10px 16px;
     margin: 8px 4px;
+    border: none;
+    font-size: 14px;
+    min-width: 80px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .btn-edit:hover {
     background-color: #ec971f !important;
+    color: white !important;
     text-decoration: none;
 }
 
@@ -77,10 +91,14 @@ a:hover{
     background-color: #d9534f !important;
     color: white !important;
     border-radius: 4px;
-    padding: 8px 12px;
+    padding: 10px 16px;
     margin: 8px 4px;
     border: none;
     font-size: 14px;
+    min-width: 80px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .btn-delete:hover {
