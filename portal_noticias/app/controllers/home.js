@@ -13,6 +13,8 @@
  * @returns {void} Renderiza template home/index com array de notícias
  */
 module.exports.index = function(application, req, res){
+	var usuario = req.session.usuario;  // Recupera usuário da sessão
+
 	var connection = application.config.dbConnection();
 	var noticiasModel = new application.app.models.NoticiasDAO(connection);
 
@@ -32,7 +34,8 @@ module.exports.index = function(application, req, res){
 		console.log('📰 Notícias carregadas:', result.length);
 		
 		res.render("home/index", {
-			noticias: result || []  // Sempre passa array (vazio ou com dados)
+			noticias: result || [],
+			usuario: usuario || null  // Sempre passa usuário (ou null)
 		});
 	});
 };

@@ -24,16 +24,16 @@
 		<title>Portal de notícias</title>
 		
 		<!-- JQuery - Biblioteca JavaScript -->
-		<script src="js/jquery-2.2.1.js"></script>
+		<script src="/js/jquery-2.2.1.js"></script>
 
 		<!-- Bootstrap CSS via CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	
 		<!-- CSS customizado -->
-		<link href="css/style.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="images/favicon.ico" />
+		<link rel="shortcut icon" href="/images/favicon.ico" />
 	</head>
 
 	<body>
@@ -49,14 +49,16 @@
 						<span class="icon-bar"></span>
 					</button>
 					
-					<img src="images/logo.png" />
+					<img src="/images/logo.png" />
 				</div>
 
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/">HOME</a></li>
-						<li><a href="/noticias">NOTÍCIAS</a></li>
-						<li><a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a></li>
+						<% if(typeof usuario !== 'undefined' && usuario) { %>
+							<a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a>
+						<% } %>
+						
 					</ul>
 				</div>
 			</div>
@@ -88,21 +90,27 @@
 				    			<span class="noticia_autor"><%= noticias[i].autor %></span>
 				    			
 				    			<!-- Link para visualização individual -->
-				    			<a href="noticia?id_noticia=<%=noticias[i].id_noticia%>" class="noticia_titulo"><%= noticias[i].titulo %></a>
-				    			
+								<a href="noticia?id_noticia=<%=noticias[i].id_noticia%>" class="noticia_titulo"><%= noticias[i].titulo %></a>
+
 				    			<span class="noticia_data"><%= noticias[i].data_noticia %></span>
 				    			<br />
 				    			<!-- Resumo para dar prévia do conteúdo -->
 				    			<p class="noticia_resumo">
 				    				<%= noticias[i].resumo %>
 				    			</p>
+				    			
+				    			<!-- BOTÕES DE AÇÃO ADMIN -->
+				    			<% if(typeof usuario !== 'undefined' && usuario) { %>
+				    				<div class="noticia_acoes">
+				    					<a href="formulario_update_noticia?id_noticia=<%=noticias[i].id_noticia%>" 
+				    					   class="btn-edit">EDITAR</a>
+				    					<a href="formulario_delete_noticia?id_noticia=<%=noticias[i].id_noticia%>" 
+				    					   class="btn-delete">EXCLUIR</a>
+				    				</div>
+				    			<% } %>
 				    		</div>
 				    	</div>
-					</div>
-				<!-- Fechamento do loop -->
 				<% } %>
-				
-			<!-- Fechamento da condicional -->
 			<% } %>
 			
 	    </div>

@@ -7,6 +7,8 @@
  * - Persistência via NoticiasDAO
  */
 
+const { noticias } = require("./noticias");
+
 /**
  * Exibe formulário para nova notícia
  * 
@@ -181,3 +183,23 @@ module.exports.noticias_delete = function(application, req, res){
 		res.redirect('/noticias');  // Sucesso: vai para listagem
 	});
 }
+
+module.exports.login_logar = function(application, req, res){
+	var email = req.body.email;
+	var senha = req.body.senha;
+
+	var connection = application.config.dbConnection();
+	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
+
+	noticiasDAO.logar(email, senha, function(error, result){
+		if(result.length > 0){
+			var usuario = result[0];
+			req.session.usuario = usuario;  // Armazena na sessão
+			res.redirect('/');  // Redireciona para homepage
+		} else {
+			res.render("admin/form_login", {
+				validacao: [{msg: "credenciais inválidas"}]
+			});
+		}
+	});
+};
