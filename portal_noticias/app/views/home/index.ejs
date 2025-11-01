@@ -25,16 +25,16 @@
 		<title>Portal de notícias</title>
 		
 		<!-- JQuery - Biblioteca JavaScript para manipulação DOM -->
-		<script src="js/jquery-2.2.1.js"></script>
+		<script src="/js/jquery-2.2.1.js"></script>
 
 		<!-- Bootstrap CSS - Framework CSS responsivo via CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	
 		<!-- CSS customizado do projeto -->
-		<link href="css/style.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
 
 		<!-- Favicon do site -->
-		<link rel="shortcut icon" href="images/favicon.ico" />
+		<link rel="shortcut icon" href="/images/favicon.ico" />
 	</head>
 
 	<body>
@@ -53,17 +53,17 @@
 					</button>
 					
 					<!-- Logo do portal -->
-					<img src="images/logo.png" />
+					<img src="/images/logo.png" />
 				</div>
 
 				<!-- Menu de navegação -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<!-- CORRIGIDO: href="/" aponta para rota dinâmica do Express -->
-						<li><a href="/">HOME</a></li>
-						<li><a href="/noticias">NOTÍCIAS</a></li>
-						<!-- Botão administrativo estilizado com classe CSS especial -->
-						<li><a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a></li>
+						<!-- Verificar se usuario existe -->
+						<% if(typeof usuario !== 'undefined' && usuario) { %>
+							<h1><%= usuario.nome %>!</h1>
+							<a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a>
+						<% } %>
 					</ul>
 				</div>
 			</div>
@@ -74,7 +74,7 @@
 	    <div class="container">
 	    	<!-- PRIMEIRA LINHA: Notícia principal (destaque) + notícia secundária -->
 	    	<div class="row">
-	    	
+
 	    		<% if(noticias && noticias.length > 0) { %>
 		    	<!-- NOTÍCIA PRINCIPAL - Ocupa 8 colunas (mais destaque) -->
 		    		<div class="col-md-8">
@@ -84,9 +84,8 @@
 			    			<span class="noticia_autor"><%= noticias[0].autor %></span>
 			    			
 			    			<!-- Link para página individual da notícia -->
-			    			<!-- ?id_noticia= cria query string para identificar a notícia -->
-			    			<a href="noticia?id_noticia=<%=noticias[0].id_noticia%>" class="noticia_titulo"><%= noticias[0].titulo %></a>
-			    			
+			    			<!-- ?id_noticia= cria query string para identificar a notícia -->						
+							<a href="/noticia?id_noticia=<%=noticias[0].id_noticia%>" class="noticia_titulo"><%= noticias[0].titulo %></a>
 			    			<span class="noticia_data"><%= noticias[0].data_noticia %></span>
 			    			<br />
 			    			<!-- Resumo da notícia para dar prévia do conteúdo -->
@@ -102,8 +101,8 @@
 	    			<div class="noticia_wrapper">
 	    				<!-- noticias[1] = segunda notícia mais recente -->
 		    			<span class="noticia_autor"><%= noticias[1].autor %></span>
-		    			<a href="noticia?id_noticia=<%=noticias[1].id_noticia%>" class="noticia_titulo"><%= noticias[1].titulo %></a>
-		    			<span class="noticia_data"><%= noticias[1].data_noticia %></span>
+						<a href="noticia?id_noticia=<%=noticias[1].id_noticia%>" class="noticia_titulo"><%= noticias[1].titulo %></a>
+						<span class="noticia_data"><%= noticias[1].data_noticia %></span>
 
 		    			<br />
 		    			<p class="noticia_resumo">
@@ -119,7 +118,11 @@
 		    		<div class="alert alert-info text-center">
 		    			<h3>Nenhuma notícia disponível</h3>
 		    			<p>Ainda não há notícias publicadas no portal. Volte em breve!</p>
-		    			<a href="/formulario_inclusao_noticia" class="btn btn-primary">Publicar primeira notícia</a>
+						<% if(typeof usuario !== 'undefined' && usuario) { %>
+						<h1><%= usuario.nome %>!</h1>
+						<li><a href="/formulario_inclusao_noticia" class="btn btn-primary">Publicar primeira notícia</a></li>
+						<% } %>
+		    			
 		    		</div>
 		    	</div>
 		    	<% } %>
@@ -138,8 +141,8 @@
 		    			<div class="noticia_wrapper">
 		    				<!-- noticias[i] = notícia atual do loop -->
 			    			<span class="noticia_autor"><%= noticias[i].autor %></span>
-			    			<a href="noticia?id_noticia=<%=noticias[i].id_noticia%>" class="noticia_titulo"><%= noticias[i].titulo %></a>
-			    			<span class="noticia_data"><%= noticias[i].data_noticia %></span>
+								<a href="noticia?id_noticia=<%=noticias[i].id_noticia%>" class="noticia_titulo"><%= noticias[i].titulo %></a>
+							<span class="noticia_data"><%= noticias[i].data_noticia %></span>
 			    			<br />
 			    			<p class="noticia_resumo">
 			    				<%= noticias[i].resumo %>
@@ -155,7 +158,7 @@
 	    	<% if(noticias && noticias.length > 0) { %>
 	    	<div class="row ver_mais">
 	    		<button type="button" class="btn btn-default">
-	    			<a href="noticias">Ver todas as notícias</a>
+					<li><a href="/noticias">Ver todas as notícias</a></li>
 	    		</button>
 	    	</div>
 	    	<% } %>

@@ -49,62 +49,62 @@ a:hover{
 .btn-admin {
 	background-color: #5cb85c !important;
 	color: white !important;
-	border-radius: 4px;
+	border-radius: 4px !important;
 	padding: 10px 16px !important;
-	margin: 8px 4px;
-	border: none;
-	font-size: 14px;
-	min-width: 80px;
-	text-align: center;
-	display: inline-block;
-	text-decoration: none;
+	margin: 8px 4px !important;
+	border: none !important;
+	font-size: 14px !important;
+	min-width: 80px !important;
+	text-align: center !important;
+	display: inline-block !important;
+	text-decoration: none !important;
 }
 
 .btn-admin:hover {
 	background-color: #449d44 !important;
 	color: white !important;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 .btn-edit {
     background-color: #f0ad4e !important;
     color: white !important;
-    border-radius: 4px;
-    padding: 10px 16px;
-    margin: 8px 4px;
-    border: none;
-    font-size: 14px;
-    min-width: 80px;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
+    border-radius: 4px !important;
+    padding: 10px 16px !important;
+    margin: 8px 4px !important;
+    border: none !important;
+    font-size: 14px !important;
+    min-width: 80px !important;
+    text-align: center !important;
+    display: inline-block !important;
+    text-decoration: none !important;
 }
 
 .btn-edit:hover {
     background-color: #ec971f !important;
     color: white !important;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 /* Estilo para botão de deletar */
 .btn-delete {
     background-color: #d9534f !important;
     color: white !important;
-    border-radius: 4px;
-    padding: 10px 16px;
-    margin: 8px 4px;
-    border: none;
-    font-size: 14px;
-    min-width: 80px;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
+    border-radius: 4px !important;
+    padding: 10px 16px !important;
+    margin: 8px 4px !important;
+    border: none !important;
+    font-size: 14px !important;
+    min-width: 80px !important;
+    text-align: center !important;
+    display: inline-block !important;
+    text-decoration: none !important;
 }
 
 .btn-delete:hover {
     background-color: #c9302c !important;
     color: white !important;
-    text-decoration: none;
+    text-decoration: none !important;
     cursor: pointer;
     transform: scale(1.02);
     transition: all 0.2s ease;
@@ -114,4 +114,283 @@ a:hover{
 .btn-delete:active {
     background-color: #ac2925 !important;
     box-shadow: 0 2px 8px rgba(217, 83, 79, 0.4);
+}
+
+/* Garantir que os botões na navbar tenham tamanho uniforme */
+.navbar-nav li a.btn-admin,
+.navbar-nav li a.btn-edit,
+.navbar-nav li a.btn-delete {
+    padding: 10px 16px !important;
+    margin: 8px 4px !important;
+    min-width: 120px !important;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+    box-sizing: border-box !important;
+}
+
+/* ===== FORMULÁRIO DE LOGIN ===== */
+
+/* Background escuro para página de login */
+body.login-page {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%) !important;
+    min-height: 100vh !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Navbar específica para login */
+body.login-page .navbar {
+    background: rgba(52, 73, 94, 0.9) !important;
+    border: none !important;
+    margin-bottom: 0 !important;
+}
+
+body.login-page .navbar img {
+    filter: brightness(0) invert(1);
+}
+
+/* Container centralizado para o form de login */
+.login-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: calc(100vh - 70px) !important; /* Altura total menos navbar */
+    padding: 20px !important;
+    position: relative !important;
+}
+
+/* Card/Quadrado do formulário de login */
+.login-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%) !important;
+    border-radius: 20px !important;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 8px 20px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    padding: 50px 40px !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    min-height: 500px !important;
+    position: relative !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Título do formulário */
+.login-title {
+    text-align: center !important;
+    color: #2c3e50 !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    margin-bottom: 35px !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Estilização dos campos de input */
+.login-form .form-group {
+    margin-bottom: 30px !important;
+}
+
+.login-form label {
+    color: #34495e !important;
+    font-weight: 600 !important;
+    margin-bottom: 12px !important;
+    font-size: 16px !important;
+    display: block !important;
+}
+
+.login-form .form-control {
+    border: 2px solid #e1e8ed !important;
+    border-radius: 10px !important;
+    padding: 15px 18px !important;
+    font-size: 16px !important;
+    transition: all 0.3s ease !important;
+    background-color: #fff !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.login-form .form-control:focus {
+    border-color: #3498db !important;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15) !important;
+    background-color: #fff !important;
+    outline: none !important;
+}
+
+/* Botão de login customizado */
+.btn-login {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 18px 35px !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    cursor: pointer !important;
+    margin-top: 15px !important;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(52, 152, 219, 0.4) !important;
+    color: white !important;
+}
+
+.btn-login:active {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3) !important;
+}
+
+/* Alertas de erro personalizados */
+.login-alert {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    margin-bottom: 25px !important;
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.25) !important;
+}
+
+/* Efeito de entrada suave */
+.login-card {
+    animation: slideIn 0.8s ease-out !important;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 480px) {
+    .login-card {
+        margin: 10px !important;
+        padding: 35px 25px !important;
+        min-height: 450px !important;
+    }
+    
+    .login-title {
+        font-size: 26px !important;
+    }
+    
+    .login-container {
+        min-height: calc(100vh - 60px) !important;
+    }
+}
+
+/* ========================================== */
+/* BOTÕES DE FORMULÁRIOS ADMIN              */
+/* ========================================== */
+
+/* Botão para criar notícia */
+.btn-admin-create {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 25px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+}
+
+.btn-admin-create:hover {
+    background: linear-gradient(135deg, #229954 0%, #1e8449 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* Botão para atualizar notícia */
+.btn-admin-update {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 25px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+}
+
+.btn-admin-update:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* Botão para deletar notícia */
+.btn-admin-delete {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px 25px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+}
+
+.btn-admin-delete:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* Garantir que botões não sejam sobrescritos pelo Bootstrap */
+.btn-admin-create:focus,
+.btn-admin-update:focus,
+.btn-admin-delete:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* ========================================== */
+/* AÇÕES DE NOTÍCIAS NA LISTAGEM            */
+/* ========================================== */
+
+.noticia_acoes {
+    margin-top: 15px !important;
+    padding-top: 15px !important;
+    border-top: 1px solid #eee !important;
+}
+
+.noticia_acoes .btn-edit,
+.noticia_acoes .btn-delete {
+    margin-right: 10px !important;
+    font-size: 14px !important;
+    padding: 8px 15px !important;
 }

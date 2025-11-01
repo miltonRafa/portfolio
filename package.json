@@ -6,5 +6,8 @@
     "start": "./start.sh"
   },
   "author": "Milton",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express-session": "^1.18.2"
+  }
 }

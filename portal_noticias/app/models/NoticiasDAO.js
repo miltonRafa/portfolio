@@ -213,6 +213,13 @@ NoticiasDAO.prototype.get5UltimasNoticias = function(callback){
 	);
 }
 
+NoticiasDAO.prototype.logar = function(email, senha, callback){
+	this._connection.query(
+		'SELECT * FROM usuarios WHERE email = ? AND senha = ?', [email, senha],
+		callback
+	);
+}
+
 /**
  * Módulo exportado pelo Consign
  * 
