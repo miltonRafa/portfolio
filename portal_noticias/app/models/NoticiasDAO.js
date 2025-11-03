@@ -220,6 +220,20 @@ NoticiasDAO.prototype.logar = function(email, senha, callback){
 	);
 }
 
+NoticiasDAO.prototype.incrementarVisitas = function(callback){
+	this._connection.query(
+		'INSERT INTO visitas (id, num_visitas) VALUES (1, 1) ON DUPLICATE KEY UPDATE num_visitas = num_visitas + 1',
+		callback
+	);
+}
+
+NoticiasDAO.prototype.getVisitas = function(callback){
+	this._connection.query(
+		'SELECT * FROM visitas WHERE id = 1',
+		callback
+	);
+}
+
 /**
  * Módulo exportado pelo Consign
  * 

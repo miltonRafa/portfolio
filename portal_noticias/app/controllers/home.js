@@ -14,7 +14,6 @@
  */
 module.exports.index = function(application, req, res){
 	var usuario = req.session.usuario;  // Recupera usuário da sessão
-
 	var connection = application.config.dbConnection();
 	var noticiasModel = new application.app.models.NoticiasDAO(connection);
 
@@ -33,9 +32,25 @@ module.exports.index = function(application, req, res){
 		
 		console.log('📰 Notícias carregadas:', result.length);
 		
-		res.render("home/index", {
-			noticias: result || [],
-			usuario: usuario || null  // Sempre passa usuário (ou null)
+		// Buscar dados de visitas do banco
+		noticiasModel.getVisitas(function(errorVisitas, resultVisitas){
+			var visitasCount = 0;
+			if(!errorVisitas && resultVisitas && resultVisitas.length > 0) {
+				visitasCount = resultVisitas[0].num_visitas;
+			}
+			
+			res.render("home/index", {
+				noticias: result || [],
+				usuario: usuario || null,
+				visitas: { num_visitas: visitasCount }  // Sempre passa objeto com num_visitas
+			});
+			
+			// Incrementa visitas após renderizar
+			noticiasModel.incrementarVisitas(function(error, result){
+				if(error) {
+					console.log('❌ Erro ao incrementar visitas:', error);
+				}
+			});
 		});
 	});
 };

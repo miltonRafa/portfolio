@@ -59,10 +59,16 @@
 				<!-- Menu de navegação -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
+						<!-- Exibir contador de visitas -->
+						<li class="navbar-text">
+							<strong>Visitas: <%= visitas.num_visitas %></strong>
+						</li>
 						<!-- Verificar se usuario existe -->
 						<% if(typeof usuario !== 'undefined' && usuario) { %>
-							<h1><%= usuario.nome %>!</h1>
-							<a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a>
+							<li class="navbar-text">
+								<span class="glyphicon glyphicon-user"></span> Olá, <%= usuario.nome %>!
+							</li>
+							<li><a href="/formulario_inclusao_noticia" class="btn-admin">ADICIONAR NOTÍCIA</a></li>
 						<% } %>
 					</ul>
 				</div>

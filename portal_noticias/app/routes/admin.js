@@ -99,6 +99,7 @@ module.exports = function(application){
 	application.get('/admin/login', function(req, res){
 		res.render("admin/form_login", { validacao: [] });
 	});
+	
 
 	/**
 	 * Processar login administrativo
