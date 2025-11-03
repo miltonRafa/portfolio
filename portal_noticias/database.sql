@@ -40,6 +40,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 COMMENT='Tabela de usuários administrativos do portal';
 
 -- ========================================
+-- CRIAÇÃO DA TABELA VISITAS
+-- ========================================
+
+CREATE TABLE IF NOT EXISTS `visitas` (
+  `id` int NOT NULL PRIMARY KEY,
+  `num_visitas` int NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci 
+COMMENT='Tabela para contador de visitas do portal';
+
+-- ========================================
 -- INSERÇÃO DE DADOS DE TESTE - NOTÍCIAS
 -- ========================================
 
@@ -56,6 +66,13 @@ INSERT IGNORE INTO `usuarios` (`nome`, `email`, `senha`) VALUES
 ('Admin Portal', 'admin@portal.com', 'admin123');
 
 -- ========================================
+-- INSERÇÃO DE DADOS - CONTADOR VISITAS
+-- ========================================
+
+INSERT IGNORE INTO `visitas` (`id`, `num_visitas`) VALUES 
+(1, 0);
+
+-- ========================================
 -- VERIFICAÇÃO FINAL
 -- ========================================
 
@@ -69,8 +86,14 @@ SELECT id_noticia, titulo, autor, data_noticia FROM noticias;
 SELECT 'DADOS INSERIDOS - USUÁRIOS:' as info;
 SELECT id, nome, email, created_at FROM usuarios;
 
+SELECT 'DADOS INSERIDOS - VISITAS:' as info;
+SELECT id, num_visitas FROM visitas;
+
 SELECT 'ESTRUTURA TABELA NOTÍCIAS:' as info;
 DESCRIBE noticias;
 
 SELECT 'ESTRUTURA TABELA USUÁRIOS:' as info;
 DESCRIBE usuarios;
+
+SELECT 'ESTRUTURA TABELA VISITAS:' as info;
+DESCRIBE visitas;
