@@ -196,6 +196,12 @@ module.exports.login_logar = function(application, req, res){
 			var usuario = result[0];
 			req.session.usuario = usuario;  // Armazena na sessão
 			res.redirect('/');  // Redireciona para homepage
+			// Incrementa visitas após renderizar
+			noticiasModel.incrementarVisitas(function(error, result){
+				if(error) {
+					console.log('❌ Erro ao incrementar visitas:', error);
+				}
+			});
 		} else {
 			res.render("admin/form_login", {
 				validacao: [{msg: "credenciais inválidas"}]

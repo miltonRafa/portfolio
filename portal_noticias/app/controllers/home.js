@@ -44,7 +44,7 @@ module.exports.index = function(application, req, res){
 				usuario: usuario || null,
 				visitas: { num_visitas: visitasCount }  // Sempre passa objeto com num_visitas
 			});
-			
+
 			// Incrementa visitas após renderizar
 			noticiasModel.incrementarVisitas(function(error, result){
 				if(error) {
