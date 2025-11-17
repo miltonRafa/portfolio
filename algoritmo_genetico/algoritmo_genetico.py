@@ -49,15 +49,10 @@ def selecao_pais(fitness_populacao_inicial, populacao_inicial):
         n2 = random.randint(0, len(populacao_inicial)-1)
         n3 = random.randint(0, len(populacao_inicial)-1)
         n4 = random.randint(0, len(populacao_inicial)-1)
-        # Garante que os 4 indivíduos sorteados são diferentes
-        while populacao_inicial[n1] == populacao_inicial[n2] or \
-            populacao_inicial[n1] == populacao_inicial[n3] or \
-            populacao_inicial[n1] == populacao_inicial[n4] or \
-            populacao_inicial[n2] == populacao_inicial[n3] or \
-            populacao_inicial[n2] == populacao_inicial[n4] or \
-            populacao_inicial[n3] == populacao_inicial[n4]:
+        while n1 == n2:
             n1 = random.randint(0, len(populacao_inicial)-1)
             n2 = random.randint(0, len(populacao_inicial)-1)
+        while n3 == n4: 
             n3 = random.randint(0, len(populacao_inicial)-1)
             n4 = random.randint(0, len(populacao_inicial)-1)
         # Calcula o fitness dos 4 sorteados
@@ -108,10 +103,10 @@ def crossover(pai_1, pai_2, populacao_inicial):
                 populacao_final[i] = pai_1[i]
             else:
                 populacao_final[i] = pai_2[i]
-        top_2_individuos = [populacao_final[i] for i in melhores_indices]
         if random.random() < pm:
             # Aplica mutação
             populacao_final[i] = mutacao(populacao_final, i)
+    top_2_individuos = [populacao_final[i] for i in melhores_indices]
     return populacao_final, top_2_individuos
 
 # Aplica mutação com probabilidade pm
@@ -128,7 +123,6 @@ def top_1(populacao_inicial):
     cont = 0
     fit_pop_inicial = calcula_fitness(populacao_inicial)
     while cont < 20:
-        
         [pai_1, pai_2] = selecao_pais(fit_pop_inicial, populacao_inicial)
         populacao_final, top_2_individuos = crossover(pai_1, pai_2, populacao_inicial)
         
@@ -139,7 +133,7 @@ def top_1(populacao_inicial):
         piores_indices = sorted(range(len(fit_pop_inicial)), key=lambda i: fit_pop_inicial[i])[:2]
         melhores_indices = top_2_indices(populacao_final)
         for j in range(2):
-            populacao_final[piores_indices[j]] = populacao_inicial[melhores_indices[j]]
+            populacao_inicial[piores_indices[j]] = populacao_final[melhores_indices[j]]
     
         top_2_fit2 = top_2_fit1.copy()
         top_2_fit1 = top_2_fit(populacao_final)
@@ -162,10 +156,10 @@ for i in range(10):
         # Executa o algoritmo genético com a população desta iteração
         top_fitness, top_individuo, populacao_final = top_1(populacao_inicial_run)
         
-        if top_fitness > top_fitness_aux and top_fitness > 0.0:
+        if top_fitness > top_fitness_aux:
             top_fitness_aux = top_fitness
             contador += 1
-        elif top_fitness_aux > top_fitness and top_fitness_aux > 0.0:
+        elif top_fitness_aux > top_fitness:
             contador += 1
 
     print(f"Conforme parâmetros atuais: {contador}/{n_runs} runs ({contador/n_runs*100:.1f}%) atingiram fitness >= 0.0, melhor fitness: {top_fitness_aux:.2f} top individuo: {top_individuo:.2f}")
