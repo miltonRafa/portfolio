@@ -279,9 +279,18 @@ def plotar_rota(melhor_individuo, distancia, fitness_val):
     plt.grid(True, alpha=0.3)
     plt.legend()
     
-    # Ajusta os limites do gráfico para melhor visualização
-    plt.xlim(-5, 35)
-    plt.ylim(-5, 35)
+    # Ajusta os limites do gráfico dinamicamente baseado nas coordenadas
+    x_coords_all = [cidade[0] for cidade in melhor_individuo]
+    y_coords_all = [cidade[1] for cidade in melhor_individuo]
+    
+    # Calcula margem de 10% do range de coordenadas
+    x_range = max(x_coords_all) - min(x_coords_all)
+    y_range = max(y_coords_all) - min(y_coords_all)
+    margin_x = max(5, x_range * 0.1)  # Margem mínima de 5
+    margin_y = max(5, y_range * 0.1)
+    
+    plt.xlim(min(x_coords_all) - margin_x, max(x_coords_all) + margin_x)
+    plt.ylim(min(y_coords_all) - margin_y, max(y_coords_all) + margin_y)
     
     plt.tight_layout()
     plt.show()
@@ -350,8 +359,19 @@ def plotar_comparacao_rotas(lista_rotas):
         ax.set_xlabel('X', fontsize=8)
         ax.set_ylabel('Y', fontsize=8)
         ax.grid(True, alpha=0.3)
-        ax.set_xlim(-3, 33)
-        ax.set_ylim(-3, 33)
+        
+        # Ajusta os limites dinamicamente para cada subplot
+        x_coords_all = [cidade[0] for cidade in individuo]
+        y_coords_all = [cidade[1] for cidade in individuo]
+        
+        # Calcula margem de 10% do range de coordenadas
+        x_range = max(x_coords_all) - min(x_coords_all)
+        y_range = max(y_coords_all) - min(y_coords_all)
+        margin_x = max(3, x_range * 0.1)  # Margem mínima de 3
+        margin_y = max(3, y_range * 0.1)
+        
+        ax.set_xlim(min(x_coords_all) - margin_x, max(x_coords_all) + margin_x)
+        ax.set_ylim(min(y_coords_all) - margin_y, max(y_coords_all) + margin_y)
     
     plt.tight_layout()
     plt.show()
