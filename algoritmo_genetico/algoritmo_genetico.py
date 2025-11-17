@@ -84,8 +84,6 @@ def top_2_fit(populacao_final):
     return sorted(fit_pop_final, reverse=True)[:2]
 
 def crossover(pai_1, pai_2, populacao_inicial):
-    melhores_indices = top_2_indices(populacao_inicial)
-
     # Cria uma cópia da população para modificar
     populacao_final = populacao_inicial.copy()
     
@@ -106,6 +104,7 @@ def crossover(pai_1, pai_2, populacao_inicial):
         if random.random() < pm:
             # Aplica mutação
             populacao_final[i] = mutacao(populacao_final, i)
+    melhores_indices = top_2_indices(populacao_inicial)
     top_2_individuos = [populacao_final[i] for i in melhores_indices]
     return populacao_final, top_2_individuos
 
