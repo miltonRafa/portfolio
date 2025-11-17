@@ -1,6 +1,6 @@
-# Algoritmo Genético
+# Algoritmo Genético - Otimização de f(x) = x * sin(x)
 
-Algoritmo genético simples em Python para otimizar a função f(x) = x * sin(x). Simula evolução natural para encontrar o valor ótimo da função.
+Algoritmo genético em Python para otimizar a função f(x) = x * sin(x). Implementa evolução natural com seleção por torneio, crossover aritmético, mutação adaptativa e elitismo para encontrar o valor ótimo da função.
 
 ## Exemplo de execução
 
@@ -9,21 +9,23 @@ Algoritmo genético simples em Python para otimizar a função f(x) = x * sin(x)
 
 ## Descrição
 
-O algoritmo busca o valor de x que maximiza f(x) = x * sin(x) através de um processo evolutivo:
+O algoritmo busca o valor de x que maximiza f(x) = x * sin(x) através de um processo evolutivo com critério de convergência adaptativo:
 
-- Inicialização de população com valores aleatórios
-- Cálculo do fitness de cada indivíduo usando f(x)
-- Seleção dos melhores indivíduos para reprodução
-- Cruzamento entre pais para gerar descendentes
-- Aplicação de mutações aleatórias
-- Repetição do ciclo por múltiplas gerações
+1. **Inicialização:** População de 300 indivíduos com valores aleatórios no intervalo [0, 500]
+2. **Avaliação:** Cálculo do fitness usando f(x) = x * sin(x)
+3. **Seleção:** Torneio entre 4 indivíduos (2 torneios paralelos geram 2 pais)
+4. **Crossover (pc=80%):** Combinação aritmética entre pais
+5. **Mutação (pm=80%):** Perturbação aleatória com magnitude θ = 5% do intervalo
+6. **Elitismo:** Substituição dos 2 piores pelos 2 melhores da geração anterior
+7. **Convergência:** Algoritmo para após 20 gerações sem melhoria no fitness
 
 ## Componentes do algoritmo
 
-**Seleção:** Torneio entre 4 indivíduos escolhidos aleatoriamente
-**Cruzamento:** Combinação aritmética (filho = α*pai1 + (1-α)*pai2)
-**Mutação:** Perturbação aditiva com magnitude controlada
-**Elitismo:** Preservação dos 2 melhores indivíduos entre gerações
+**Seleção:** Torneio entre 4 indivíduos (escolhe melhor de cada par)  
+**Crossover:** Combinação aritmética com α aleatório: filho = α×pai1 + (1-α)×pai2  
+**Mutação:** Perturbação uniforme no intervalo [-θ, +θ] onde θ = 25 (5% de 500)  
+**Elitismo:** Preservação dos 2 melhores indivíduos substituindo os 2 piores  
+**Convergência:** Para após 20 gerações consecutivas sem melhoria no top-2 fitness
 
 ## Execução
 Ambiente virtual recomendado:
@@ -45,26 +47,37 @@ python algoritmo_genetico.py
 
 ## Metodologia de teste
 
-O script executa 10 blocos experimentais, cada um realizando 100 runs independentes com populações iniciais distintas. Ao final de cada bloco, exibe o número de runs que atingiram o threshold de fitness (>= 960000.0) e a taxa de sucesso correspondente.
+O script executa 10 blocos experimentais, cada um realizando 100 runs independentes (total: 1000 execuções) com populações iniciais distintas. 
 
-Esta abordagem permite avaliar a consistência e robustez do algoritmo sob diferentes condições iniciais.
+**Métrica de avaliação:** Conta quantas vezes o fitness melhora ao longo dos 100 runs dentro de cada bloco, rastreando o melhor fitness encontrado.
 
-## Parâmetros configuráveis
+Esta abordagem permite avaliar:
+- Consistência do algoritmo sob diferentes condições iniciais
+- Capacidade de encontrar soluções progressivamente melhores
+- Robustez dos parâmetros escolhidos
 
-Principais variáveis no arquivo `algoritmo_genetico.py`:
+## Parâmetros atuais
 
-- `valor_min`, `valor_max`: domínio de busca dos indivíduos
-- `tamanho_populacao`: tamanho da população por geração
-- `pm`: probabilidade de mutação (ex: 0.1 = 10%)
-- `pc`: probabilidade de cruzamento (ex: 0.7 = 70%)
-- `teta`: magnitude da mutação (5% do intervalo total)
+```python
+valor_min = 0              # Limite inferior do espaço de busca
+valor_max = 500            # Limite superior do espaço de busca
+tamanho_populacao = 300    # Número de indivíduos por geração
+pm = 0.8                   # Probabilidade de mutação (80%)
+pc = 0.8                   # Probabilidade de crossover (80%)
+teta = 25                  # Magnitude da mutação (5% do intervalo)
+convergencia = 20          # Gerações sem melhoria para parar
+```
 
-## Observações sobre parâmetros
+## Impacto dos parâmetros
 
-- **População maior:** melhora estabilidade e cobertura do espaço de busca, mas aumenta custo computacional
-- **Mutação alta:** excesso de ruído pode prejudicar convergência
-- **Mutação baixa:** risco de estagnação em ótimos locais
-- **Taxa de cruzamento:** controla intensidade da exploração por recombinação
+| Parâmetro | Valor Atual | Impacto |
+|-----------|-------------|---------|
+| **Espaço de busca** | [0, 500] | Reduzido para melhor convergência (antes: [0, 1M]) |
+| **População** | 300 | Triplicada para maior diversidade (antes: 100) |
+| **Mutação (pm)** | 80% | Alta exploração do espaço de soluções |
+| **Crossover (pc)** | 80% | Alta recombinação genética |
+| **θ (teta)** | 25 | Perturbação moderada (5% do range) |
+| **Elitismo** | 2 melhores | Garante preservação das melhores soluções |
 
 ## Análise experimental
 
