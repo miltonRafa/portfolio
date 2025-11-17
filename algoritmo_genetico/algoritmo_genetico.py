@@ -4,11 +4,11 @@ import math
 
 
 valor_min = 0
-valor_max = 1000000
+valor_max = 500
 # Define o valor de teta para mutação
 teta = (valor_max - valor_min) * 0.05
 # Define o tamanho da população
-tamanho_populacao = 100
+tamanho_populacao = 300
 # Gera a população inicial com valores aleatórios
 populacao_inicial = [random.randint(valor_min, valor_max) for _ in range(tamanho_populacao)]
 # Probabilidade de mutação
@@ -27,14 +27,14 @@ def calcula_fitness(populacao_inicial):
     return fitness_populacao_inicial
 
 def individuos_fitness_print(populacao_inicial):
-    i = 1
+    i = 0
     # Calcula e imprime o fitness de cada indivíduo
     fitness_populacao_inicial = []
     for individuo in populacao_inicial:
         # f(x) = x * sin(x)
         fitness = individuo * math.sin(individuo)
-        fitness_populacao_inicial.append(fitness) 
-        print(f"Indivíduo {i}: {individuo} -> Fitness: {fitness:.2f}")
+        fitness_populacao_inicial.append(fitness)  
+        print(f"Indivíduo {i}: {individuo:.2f} -> Fitness: {fitness:.2f}")
         i += 1
 
 # Comparando pares consecutivos de fitness
@@ -89,38 +89,36 @@ def top_2_fit(populacao_final):
     return sorted(fit_pop_final, reverse=True)[:2]
 
 def crossover(pai_1, pai_2, populacao_inicial):
-    # Realiza o crossover preservando os 2 melhores indivíduos
     melhores_indices = top_2_indices(populacao_inicial)
 
     # Cria uma cópia da população para modificar
     populacao_final = populacao_inicial.copy()
     
     for i in range(len(populacao_final)):
-        if i not in melhores_indices:
-            valor = random.random()
-            if valor < pc :
-                alfa = random.random()
-                filho = (alfa * pai_1[i]) + ((1 - alfa) * pai_2[i])
-                populacao_final[i] = filho
+        valor = random.random()
+        if valor < pc:
+            alfa = random.random()
+            filho = (alfa * pai_1[i]) + ((1 - alfa) * pai_2[i])
+            populacao_final[i] = filho
+        else:
+            fit_pai1 = calcula_fitness(pai_1)
+            fit_pai2 = calcula_fitness(pai_2)
+            # Copia o indivíduo do pai com maior fitness
+            if fit_pai1[i] > fit_pai2[i]:
+                populacao_final[i] = pai_1[i]
             else:
-                fit_pai1 = calcula_fitness(pai_1)
-                fit_pai2 = calcula_fitness(pai_2)
-                # Copia o indivíduo do pai com maior fitness
-                if fit_pai1[i] > fit_pai2[i]:
-                    populacao_final[i] = pai_1[i]
-                else:
-                    populacao_final[i] = pai_2[i]
-            top_2_individuos = [populacao_final[i] for i in melhores_indices]
+                populacao_final[i] = pai_2[i]
+        top_2_individuos = [populacao_final[i] for i in melhores_indices]
+        if random.random() < pm:
             # Aplica mutação
             populacao_final[i] = mutacao(populacao_final, i)
     return populacao_final, top_2_individuos
 
 # Aplica mutação com probabilidade pm
 def mutacao(populacao_final, i):
-    if random.random() < pm:
-        # Aplica uma pequena perturbação no indivíduo
-        populacao_final[i] += random.uniform(-teta, teta)
-        populacao_final[i] = max(valor_min, min(valor_max, populacao_final[i])) # retorna o valor máximo entre 0 e 100 garantindo que população não seja maior que valor_max
+    # Aplica uma pequena perturbação no indivíduo
+    populacao_final[i] += random.uniform(-teta, teta)
+    populacao_final[i] = max(valor_min, min(valor_max, populacao_final[i])) # retorna o valor máximo entre 0 e 100 garantindo que população não seja maior que valor_max
     return populacao_final[i]
 
 def top_1(populacao_inicial):
@@ -129,27 +127,26 @@ def top_1(populacao_inicial):
     top_2_fit2 = [0]
     cont = 0
     fit_pop_inicial = calcula_fitness(populacao_inicial)
-    while cont < 50 and top_2_fit1 != top_2_fit2:
-        top_2_fit2 = top_2_fit1.copy()
+    while cont < 20:
+        
         [pai_1, pai_2] = selecao_pais(fit_pop_inicial, populacao_inicial)
         populacao_final, top_2_individuos = crossover(pai_1, pai_2, populacao_inicial)
-        top_2_fit1 = top_2_fit(populacao_final)
+        
         populacao_inicial = populacao_final
         fit_pop_inicial = calcula_fitness(populacao_inicial)
-        
-        # Implementa o elitismo
-        elite = max(fit_pop_inicial)
-        badGuy = min(fit_pop_inicial)
-        whereElite = fit_pop_inicial.index(elite)
-        whereBadGuy = fit_pop_inicial.index(badGuy)
 
-        populacao_inicial[whereBadGuy] = populacao_inicial[whereElite]
-        fit_pop_inicial[whereBadGuy] = elite
-
+        # Substitui os piores pelos melhores da geração anterior (garante elitismo)
+        piores_indices = sorted(range(len(fit_pop_inicial)), key=lambda i: fit_pop_inicial[i])[:2]
+        melhores_indices = top_2_indices(populacao_final)
+        for j in range(2):
+            populacao_final[piores_indices[j]] = populacao_inicial[melhores_indices[j]]
+    
+        top_2_fit2 = top_2_fit1.copy()
+        top_2_fit1 = top_2_fit(populacao_final)
         if top_2_fit1 == top_2_fit2:
             # Guarda os 2 melhores indivíduos finais
             top_individuo = max(top_2_individuos)
-        cont += 1
+            cont += 1
 
     return max(fit_pop_inicial), top_individuo, populacao_final
 
@@ -158,15 +155,20 @@ print("\n")
 for i in range(10):
     contador = 0
     n_runs = 100
+    top_fitness_aux = 0
     for i in range(n_runs):
         # gera nova população aleatória para este experimento
         populacao_inicial_run = [random.randint(valor_min, valor_max) for _ in range(tamanho_populacao)]
         # Executa o algoritmo genético com a população desta iteração
         top_fitness, top_individuo, populacao_final = top_1(populacao_inicial_run)
-        if top_fitness >= 980000.0:
+        
+        if top_fitness > top_fitness_aux and top_fitness > 0.0:
+            top_fitness_aux = top_fitness
+            contador += 1
+        elif top_fitness_aux > top_fitness and top_fitness_aux > 0.0:
             contador += 1
 
-    print(f"Conforme parâmetros atuais: {contador}/{n_runs} runs ({contador/n_runs*100:.1f}%) atingiram fitness >= 980000.0")
+    print(f"Conforme parâmetros atuais: {contador}/{n_runs} runs ({contador/n_runs*100:.1f}%) atingiram fitness >= 0.0, melhor fitness: {top_fitness_aux:.2f} top individuo: {top_individuo:.2f}")
 
 
 # Bloco para executar o algoritmo uma única vez e mostrar detalhes
@@ -175,4 +177,4 @@ top_fitness, top_individuo, populacao_final = top_1(populacao_inicial)
 print("\nMelhor indivíduo:", top_individuo)
 print("Melhor fitness:", top_fitness)
 print("fitness de todos os indivíduos na população final:\n")
-individuos_fitness_print(populacao_final)
+#individuos_fitness_print(populacao_final)
