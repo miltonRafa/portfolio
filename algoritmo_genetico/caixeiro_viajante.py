@@ -440,7 +440,16 @@ print("\n")
 lista_melhores_rotas = []  # Lista para armazenar as melhores rotas de cada execução
 tempo_inicio = time.time()  # Inicia cronômetro
 
-for run_idx in range(10):
+# Execução inicial para teste rápido - gera uma rota aleatória
+melhor_individuo = gerar_percurso_aleatorio(cidades)
+distancia_melhor = calcular_distancia(melhor_individuo)
+melhor_fit = fitness(melhor_individuo)
+lista_melhores_rotas.append((melhor_individuo, distancia_melhor, melhor_fit, 0))
+melhor_individuo_nomes = cidades_na_rota(melhor_individuo)
+print(f"Execução inicial para teste rápido (rota aleatória):")
+print(f"Fitness: {melhor_fit:.6f} | Distância: {distancia_melhor:.2f} --> {melhor_individuo_nomes}\n")
+
+for run_idx in range(9):
     contador = 0  # Conta quantas execuções atingiram o ótimo
     n_runs = 100  # 100 execuções por run
     top_fit = 0
