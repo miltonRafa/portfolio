@@ -1,3 +1,12 @@
 [submodule "Nikel"]
 	path = Nikel
 	url = git@github.com:miltonRafa/nikel.git
+[submodule "algoritmo_genetico"]
+	path = algoritmo_genetico
+	url = git@github.com:miltonRafa/algoritmoGenetico.git
+[submodule "portal_noticias"]
+	path = portal_noticias
+	url = git@github.com:miltonRafa/portalNoticias.git
+[submodule "multiroom_chat"]
+	path = multiroom_chat
+	url = git@github.com:miltonRafa/multiroomChat.git
