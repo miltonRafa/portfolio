@@ -1,0 +1,3 @@
+[submodule "Nikel"]
+	path = Nikel
+	url = git@github.com:miltonRafa/nikel.git

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import time
 
 # Parâmetros do algoritmo genético
-tamanho_populacao = 300  # Número de indivíduos (rotas) na população
+tamanho_populacao = 500  # Número de indivíduos (rotas) na população
 elitismo = 25  # Percentual dos melhores indivíduos preservados entre gerações (25%)
 prob_mutacao = 1.0  # Probabilidade de aplicar mutação (100%)
 prob_crossover = 1.0  # Probabilidade de aplicar crossover (100%)
