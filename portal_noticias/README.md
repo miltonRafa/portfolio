@@ -2,10 +2,6 @@
 
 Aplicação web full-stack para gerenciamento e visualização de notícias com sistema de autenticação administrativo completo. Projeto desenvolvido seguindo padrão MVC com arquitetura escalável.
 
-## 🌐 Demo Online
-
-**Acesse o projeto funcionando:** [https://portalnoticias.up.railway.app](https://portalnoticias.up.railway.app)
-
 ### 🔑 Como usar:
 - **👁️ Navegar:** Explore as notícias pela página inicial sem autenticação
 - **📖 Visualizar:** Clique em qualquer notícia para ler o conteúdo completo  
@@ -57,7 +53,7 @@ res.render("template", {
 ```
 
 ### 🗄️ Banco de Dados
-- ✅ **Dual environment** (local + Railway)
+- ✅ **Configuração flexível** com suporte a variáveis de ambiente
 - ✅ **Tabela usuarios** com timestamps automáticos
 - ✅ **Tabela noticias** com campos completos
 - ✅ **Scripts SQL** unificados para setup
@@ -114,11 +110,10 @@ res.render("template", {
 - **Tipografia otimizada** e iconografia emoji
 
 ### Deploy e Infraestrutura
-- **Railway** para hospedagem gratuita em nuvem
-- **MySQL Railway** com backup automático
-- **Deploy automático** via GitHub integration
+- **Configuração via variáveis de ambiente** para diferentes ambientes
+- **MySQL** com suporte a conexões remotas
 - **Variáveis de ambiente** para configuração segura
-- **SSL/HTTPS** automático no Railway
+- **Compatível** com diversos provedores de hospedagem
 
 ## 📊 Arquitetura do Projeto
 
@@ -253,10 +248,10 @@ npm install
 ### 2️⃣ Configuração do Banco
 ```bash
 # Criar banco local
-mysql -u root -p -e "CREATE DATABASE railway;"
+mysql -u root -p -e "CREATE DATABASE portal_noticias;"
 
 # Executar script de setup
-mysql -u root -p railway < database.sql
+mysql -u root -p portal_noticias < database.sql
 ```
 
 ### 3️⃣ Configuração de Ambiente
@@ -268,7 +263,7 @@ cp .env.example .env
 # DB_HOST=localhost
 # DB_USER=root  
 # DB_PASS=
-# DB_NAME=railway
+# DB_NAME=portal_noticias
 # DB_PORT=3306
 ```
 
@@ -287,27 +282,22 @@ nodemon app.js
 - **Admin:** http://localhost:3000/admin/login
 - **Credenciais:** admin@portal.com / admin123
 
-## 🌩️ Deploy no Railway (Gratuito)
+## 🚀 Deploy em Produção
 
-### Setup Rápido
-1. **Fork** este repositório
-2. **Conecte** Railway ao GitHub
-3. **Deploy** o projeto portal_noticias
-4. **Adicione** banco MySQL no Railway
-5. **Configure** variáveis de ambiente
-6. **Execute** script de banco
-
-### Variáveis de Ambiente Railway
+### Variáveis de Ambiente Necessárias
 ```env
 PORT=3000
-DB_HOST=[MYSQL_HOST_RAILWAY]
-DB_USER=[MYSQL_USER_RAILWAY]
-DB_PASS=[MYSQL_PASSWORD_RAILWAY]
-DB_NAME=[MYSQL_DATABASE_RAILWAY]
-DB_PORT=[MYSQL_PORT_RAILWAY]
+DB_HOST=[seu_host_mysql]
+DB_USER=[seu_usuario_mysql]
+DB_PASS=[sua_senha_mysql]
+DB_NAME=[nome_do_banco]
+DB_PORT=[porta_mysql]
 ```
 
-**📖 Guia completo:** [DEPLOY.md](./DEPLOY.md)
+### Setup em Produção
+1. Configure as variáveis de ambiente no seu provedor
+2. Execute o script `database.sql` no banco de produção
+3. Inicie a aplicação: `npm start`
 
 ## 📈 Principais Aprendizados
 
@@ -331,10 +321,10 @@ DB_PORT=[MYSQL_PORT_RAILWAY]
 - **Progressive Enhancement** com JavaScript não-intrusivo
 
 ### ☁️ DevOps e Deploy
-- **Railway deployment** com configuração de produção
 - **Environment variables** para configuração segura
 - **Database migrations** e scripts de setup
 - **Git workflow** com versionamento semântico
+- **Deploy-ready** para diversos provedores de hospedagem
 
 ### 🔒 Segurança
 - **Authentication flows** com validação server-side
@@ -378,9 +368,7 @@ DB_PORT=[MYSQL_PORT_RAILWAY]
 
 ## 🔗 Links do Projeto
 
-- **🌐 Demo Online:** [https://portalnoticias.up.railway.app](https://portalnoticias.up.railway.app)
 - **📋 Repositório:** [https://github.com/miltonRafa/portfolio](https://github.com/miltonRafa/portfolio)
-- **📖 Guia de Deploy:** [DEPLOY.md](./DEPLOY.md)
 - **📊 Database Schema:** [database.sql](./database.sql)
 
 ## 👨‍💻 Desenvolvedor
@@ -393,6 +381,6 @@ DB_PORT=[MYSQL_PORT_RAILWAY]
 
 ---
 
-> 💡 **Este projeto demonstra competências completas em desenvolvimento full-stack Node.js, incluindo autenticação, CRUD operations, deploy em nuvem e boas práticas de desenvolvimento web moderno.**
+> 💡 **Este projeto demonstra competências completas em desenvolvimento full-stack Node.js, incluindo autenticação, CRUD operations e boas práticas de desenvolvimento web moderno.**
 
 **⭐ Se este projeto foi útil, considere deixar uma estrela no repositório!**

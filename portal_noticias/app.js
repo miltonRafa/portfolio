@@ -13,7 +13,7 @@
 // Importa a configuração do servidor Express com todas as dependências carregadas
 var app = require('./config/server');
 
-// Define a porta do servidor: Railway (produção) ou 3000 (desenvolvimento)
+// Define a porta do servidor
 var port = process.env.PORT || 3000;
 
 // Inicia o servidor HTTP na porta especificada

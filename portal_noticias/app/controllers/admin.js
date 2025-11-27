@@ -192,6 +192,12 @@ module.exports.login_logar = function(application, req, res){
 	var noticiasDAO = new application.app.models.NoticiasDAO(connection);
 
 	noticiasDAO.logar(email, senha, function(error, result){
+		if(error || !result){
+			console.log('❌ Erro ao fazer login:', error);
+			res.render("admin/form_login", {validacao: {}, msg: "Erro ao conectar ao banco de dados"});
+			return;
+		}
+		
 		if(result.length > 0){
 			var usuario = result[0];
 			req.session.usuario = usuario;  // Armazena na sessão

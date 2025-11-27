@@ -1,8 +1,6 @@
 -- ========================================
 -- SCRIPT COMPLETO - PORTAL DE NOTÍCIAS
--- Database: Railway (Produção)
--- Comando para conectar:
--- mysql -h mainline.proxy.rlwy.net -u root -p'sHKuwOYfVaHqihMOOyupsGQzqlFCsSTu' --port 40258 --protocol=TCP railway < database.sql
+-- Database: portal_noticias
 -- ========================================
 
 -- Verificar tabelas existentes
@@ -54,9 +52,9 @@ COMMENT='Tabela para contador de visitas do portal';
 -- ========================================
 
 INSERT IGNORE INTO noticias (titulo, noticia, resumo, autor, data_noticia) VALUES 
-('Primeira Notícia do Portal', 'Esta é a primeira notícia publicada no portal em produção. Sistema funcionando perfeitamente!', 'Portal de notícias funcionando em produção', 'Milton', CURDATE()),
-('Deploy Realizado com Sucesso', 'O deploy do portal de notícias foi realizado com sucesso no Railway. Todas as funcionalidades estão operacionais.', 'Deploy concluído no Railway', 'Milton', CURDATE()),
-('Sistema de Autenticação Implementado', 'Foi implementado sistema completo de autenticação para administradores do portal, com login seguro e controle de sessões.', 'Autenticação admin funcionando', 'Milton', CURDATE());
+('Primeira Notícia do Portal', 'Esta é a primeira notícia publicada no portal. Sistema funcionando perfeitamente!', 'Portal de notícias funcionando', 'Milton', CURDATE()),
+('Sistema de Autenticação Implementado', 'Foi implementado sistema completo de autenticação para administradores do portal, com login seguro e controle de sessões.', 'Autenticação admin funcionando', 'Milton', CURDATE()),
+('Funcionalidades Completas', 'Portal de notícias com sistema CRUD completo, autenticação de usuários e interface responsiva.', 'Sistema completo e operacional', 'Milton', CURDATE());
 
 -- ========================================
 -- INSERÇÃO DE DADOS - USUÁRIO ADMIN
