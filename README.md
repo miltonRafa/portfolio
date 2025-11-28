@@ -1,38 +1,39 @@
-# Portfólio Milton Rafa
+# Portfolio Milton Rafa
 
-Bem-vindo ao meu portfólio!  
-Aqui você encontra meus principais projetos, estudos e experimentos em desenvolvimento web, backend, automação e mais.
+Repositorio com meus principais projetos de desenvolvimento web, backend, automacao e algoritmos.
 
-## Sobre mim
-Desenvolvedor apaixonado por tecnologia, com experiência em Node.js, Python, JavaScript, bancos de dados e DevOps. Sempre buscando aprender e contribuir!
+## Sobre
 
-## 📂 Estrutura do Projeto
+Desenvolvedor com experiencia em Node.js, Python, JavaScript, bancos de dados e DevOps.
 
-Este repositório utiliza **git submodules** para organizar cada projeto como um repositório independente. Isso facilita o gerenciamento individual e permite que cada projeto seja clonado separadamente.
+## Estrutura do Projeto
+
+Este repositorio utiliza git submodules para organizar cada projeto como um repositorio independente.
 
 ### Como clonar com os submodules
 
 ```bash
-# Clone o repositório principal com todos os submodules
+# Clone o repositorio principal com todos os submodules
 git clone --recurse-submodules git@github.com:miltonRafa/portfolio.git
 
-# Ou se já clonou sem os submodules:
+# Ou se ja clonou sem os submodules:
 git submodule update --init --recursive
 ```
 
-## 🚀 Projetos
+## Projetos
 
-| Projeto | Descrição | Tecnologias | Repositório |
+| Projeto | Descricao | Tecnologias | Repositorio |
 |---------|-----------|-------------|-------------|
-| [**Algoritmo Genético**](https://github.com/miltonRafa/algoritmoGenetico) | Implementação de algoritmo TSP (Travelling Salesman Problem) usando algoritmos genéticos | Python, Matplotlib | [🔗 Ver Repo](https://github.com/miltonRafa/algoritmoGenetico) |
-| [**Portal de Notícias**](https://github.com/miltonRafa/portalNoticias) | Sistema completo de notícias com autenticação administrativa, CRUD operations e banco de dados | Node.js, Express, MySQL, EJS | [🔗 Ver Repo](https://github.com/miltonRafa/portalNoticias) |
-| [**Multiroom Chat**](https://github.com/miltonRafa/multiroomChat) | Chat em tempo real com múltiplas salas usando WebSockets | Node.js, Socket.io | [🔗 Ver Repo](https://github.com/miltonRafa/multiroomChat) |
-| [**Nikel**](https://github.com/miltonRafa/nikel) | Gerenciador financeiro pessoal com interface intuitiva | HTML, CSS, JavaScript | [🔗 Ver Repo](https://github.com/miltonRafa/nikel) |
+| **Algoritmo Genetico** | Implementacao de algoritmo TSP usando algoritmos geneticos | Python, Matplotlib | [Ver Repo](https://github.com/miltonRafa/algoritmoGenetico) |
+| **Portal de Noticias** | Sistema de noticias com autenticacao administrativa e CRUD completo | Node.js, Express, MySQL, EJS | [Ver Repo](https://github.com/miltonRafa/portalNoticias) |
+| **Multiroom Chat** | Chat em tempo real com multiplas salas usando WebSockets | Node.js, Socket.io | [Ver Repo](https://github.com/miltonRafa/multiroomChat) |
+| **Nikel** | Gerenciador financeiro pessoal | HTML, CSS, JavaScript | [Ver Repo](https://github.com/miltonRafa/nikel) |
 
-## 📖 Como rodar os projetos
+## Como rodar os projetos
 
-Cada projeto tem seu próprio repositório com instruções detalhadas de instalação e uso. Clique nos links da tabela acima para acessar os repositórios individuais.
+Cada projeto tem seu proprio repositorio com instrucoes detalhadas de instalacao e uso.
 
 ## Contato
-- [LinkedIn](https://linkedin.com/in/milton-r-dev)
+
+- LinkedIn: [linkedin.com/in/milton-r-dev](https://linkedin.com/in/milton-r-dev)
 - Email: miltonrs.dev@gmail.com
