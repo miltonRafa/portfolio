@@ -22,12 +22,16 @@ git submodule update --init --recursive
 
 ## Projetos
 
-| Projeto | Descricao | Tecnologias | Repositorio |
-|---------|-----------|-------------|-------------|
-| **Algoritmo Genetico** | Implementacao de algoritmo TSP usando algoritmos geneticos | Python, Matplotlib | [Ver Repo](https://github.com/miltonRafa/algoritmoGenetico) |
-| **Portal de Noticias** | Sistema de noticias com autenticacao administrativa e CRUD completo | Node.js, Express, MySQL, EJS | [Ver Repo](https://github.com/miltonRafa/portalNoticias) |
-| **Multiroom Chat** | Chat em tempo real com multiplas salas usando WebSockets | Node.js, Socket.io | [Ver Repo](https://github.com/miltonRafa/multiroomChat) |
-| **Nikel** | Gerenciador financeiro pessoal | HTML, CSS, JavaScript | [Ver Repo](https://github.com/miltonRafa/nikel) |
+Lista dos repositórios públicos do GitHub (atualizado automaticamente):
+
+| Projeto | Repositório |
+|---------|-------------|
+| algoritmoGenetico | [Ver Repo](https://github.com/miltonRafa/algoritmoGenetico) |
+| portfolio | [Ver Repo](https://github.com/miltonRafa/portfolio) |
+| portfolio-pipeline-dados-educacionais | [Ver Repo](https://github.com/miltonRafa/portfolio-pipeline-dados-educacionais) |
+| portfolio-publico-agendecom | [Ver Repo](https://github.com/miltonRafa/portfolio-publico-agendecom) |
+| portfolio-publico-convidai | [Ver Repo](https://github.com/miltonRafa/portfolio-publico-convidai) |
+| portfolio-publico-myglana | [Ver Repo](https://github.com/miltonRafa/portfolio-publico-myglana) |
 
 ## Como rodar os projetos
 
